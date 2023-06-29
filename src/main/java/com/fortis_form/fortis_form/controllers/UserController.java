@@ -23,6 +23,7 @@ public class UserController {
     //     model.addAttribute("st", students);
     //     return "users/signup";
     // }
+        
 
     @GetMapping("/users/login")
     public String logIn(Model model){

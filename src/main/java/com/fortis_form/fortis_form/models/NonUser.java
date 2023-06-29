@@ -3,7 +3,7 @@ package com.fortis_form.fortis_form.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name="nonusers")
 public class NonUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,13 +12,12 @@ public class NonUser {
     private String name;
     private String last_name;
     private String address;
-    private Number phone;
+    private String phone;
 
     public NonUser() {
     }
 
-    public NonUser(int nuid, String name, String last_name, String address, Number phone) {
-        this.nuid = nuid;
+    public NonUser(String name, String last_name, String address, String phone) {
         this.name = name;
         this.last_name = last_name;
         this.address = address;
@@ -57,11 +56,11 @@ public class NonUser {
         this.address = address;
     }
 
-    public Number getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Number phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     
