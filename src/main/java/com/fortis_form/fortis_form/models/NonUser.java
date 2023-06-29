@@ -4,37 +4,33 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="users")
-public class User {
+public class NonUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int uid;
+    private int nuid;
     
     private String name;
     private String last_name;
     private String address;
     private Number phone;
-    private String email;
-    private String password;
 
-    public User() {
+    public NonUser() {
     }
 
-    public User(int uid, String name, String last_name, String address, Number phone, String email, String password) {
-        this.uid = uid;
+    public NonUser(int nuid, String name, String last_name, String address, Number phone) {
+        this.nuid = nuid;
         this.name = name;
         this.last_name = last_name;
         this.address = address;
         this.phone = phone;
-        this.email = email;
-        this.password = password;
     }
 
-    public int getUid() {
-        return uid;
+    public int getNuid() {
+        return nuid;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setNuid(int nuid) {
+        this.nuid = nuid;
     }
 
     public String getName() {
@@ -68,21 +64,6 @@ public class User {
     public void setPhone(Number phone) {
         this.phone = phone;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    
 
 }
