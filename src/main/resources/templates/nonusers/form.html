@@ -16,18 +16,18 @@
               <div class="card" style="border-radius: 15px;">
                 <div class="card-body p-5">
                   <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
-                  <form action="/nonusers/add" method="post">
+                  <form>
                   <div class="form-outline mb-4">
-                    <input type="text" id="signup_FirstName" name="name" placeholder="First Name" class="form-control form-control-lg" />
+                    <input type="text" id="signup_FirstName" name="name" placeholder="Name" th:value="${param.name}" class="form-control form-control-lg" />
                   </div>
                   <div class="form-outline mb-4">
-                      <input type="text" id="signup_LastName" name="last_name" placeholder="Last Name" class="form-control form-control-lg" />
+                      <input type="text" id="signup_LastName" name="last_name" placeholder="Last Name" th:value="${param.last_name}" class="form-control form-control-lg" />
                   </div>
                   <div class="form-outline mb-4">
-                    <input type="text" id="signup_Phone" name="phone" placeholder="Phone number" class="form-control form-control-lg" />
+                    <input type="text" id="signup_Phone" name="phone" placeholder="Phone number" th:value="${param.phone}" class="form-control form-control-lg" />
                   </div>
                   <div class="form-outline mb-4">
-                      <input type="text" id="signup_Address" name="address" placeholder="Address" class="form-control form-control-lg" />
+                      <input type="text" id="signup_Address" name="address" placeholder="Address" th:value="${param.address}" class="form-control form-control-lg" />
                   </div>
 
                   <p class="fs-3">Is this:</p>

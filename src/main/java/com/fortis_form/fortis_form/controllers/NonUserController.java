@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fortis_form.fortis_form.models.NonUserRepository;
 import com.fortis_form.fortis_form.models.NonUser;
@@ -41,15 +42,24 @@ public class NonUserController {
 
 
     @PostMapping("/nonusers/add")
-    public String addStudent(@RequestParam Map<String, String> newnonuser,HttpServletResponse response){
+    public String addStudent(@RequestParam Map<String, String> newnonuser,HttpServletResponse response, RedirectAttributes redirectAttributes){
         System.out.println("Add nonuser");
         String newName = newnonuser.get("name");
         String newLastName = newnonuser.get("last_name");
         String newPhone = newnonuser.get("phone");
         String newAddress = newnonuser.get("address");
+        
         nonUserRepo.save(new NonUser(newName, newLastName, newAddress, newPhone));
+        redirectAttributes.addAttribute("name", newName);
+        redirectAttributes.addAttribute("last_name", newLastName);
+        redirectAttributes.addAttribute("phone", newPhone);
+        redirectAttributes.addAttribute("address", newAddress);
+        // int id = Integer.parseInt(newnonuser.get("id"));
+        // redirectAttributes.addAttribute("id", id);
         response.setStatus(201);
         return "redirect:/nonusers/form";
     }
+
+
 
 }
