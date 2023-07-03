@@ -301,7 +301,10 @@
 <script>
 $(document).ready(function() {
 
-
+   $('input[type=radio][name=glass_hit]').change(function() {
+      window.location.href = "/nonusers/submit";
+    
+    });
   
   // Listen for radio button change event
   $('input[type=radio][name=emergency_nature]').change(function() {
