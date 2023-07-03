@@ -1,6 +1,6 @@
 package com.fortis_form.fortis_form.controllers;
 
-import java.util.List;
+// import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +30,14 @@ public class NonUserController {
         // model.addAttribute("st", students);
         return "nonusers/signup";
     }
+    
+    @GetMapping("/nonusers/submit")
+    public String Submit(Model model){
+        return "nonusers/submit";
+    }
 
     @GetMapping("/nonusers/form")
-    public String form(@RequestParam(required = false) String phone, Model model){
+    public String Form(@RequestParam(required = false) String phone, Model model){
         System.out.println("getting nonusers");
         
         if (phone != null) {
