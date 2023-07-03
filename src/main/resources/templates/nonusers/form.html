@@ -8,6 +8,7 @@
       <link rel="stylesheet" type="text/css" th:href="@{/signup.css}">
       <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
       <script th:src="@{/js/jquery.min.js}" defer></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script th:src="@{/js/bootstrap.min.js}" defer></script>   
       <title>Emergency Form</title>
    </head>
@@ -297,14 +298,11 @@
          </div>
       </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 $(document).ready(function() {
 
-   $('input[type=radio][name=glass_hit]').change(function() {
-      window.location.href = "/nonusers/submit";
-    
-    });
+   
   
   // Listen for radio button change event
   $('input[type=radio][name=emergency_nature]').change(function() {
@@ -390,6 +388,22 @@ $(document).ready(function() {
   });
 
 
+  $('input[type=radio][name=glass_hit]').change(function() {
+      window.location.href = "/nonusers/submit";
+    
+    });
+
+    $('input[type=radio][name=gas_meter_check]').change(function() {
+      window.location.href = "/nonusers/submit";
+    
+    });
+
+    $('input[type=radio][name=reg_check]').change(function() {
+      window.location.href = "/nonusers/submit";
+    
+    });
+
+
   var totalRadioButtons = 6;
   // Calculate the width increment for each radio button
   var widthIncrement = 100 / totalRadioButtons;
@@ -402,9 +416,59 @@ $(document).ready(function() {
   });
 
 
-
-
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+   var initButtons = document.querySelectorAll('input[type=radio][name=response_type], input[type=radio][name=building_type]');
+
+   initButtons.forEach(function(button) {
+      button.addEventListener('change', function() {
+         var response_val = document.querySelector('input[type=radio][name=response_type]:checked');
+         var building_val = document.querySelector('input[type=radio][name=building_type]:checked');
+
+         if (response_val !== null && building_val !== null) {
+            var gasButtons = document.querySelectorAll('input[type=radio][name=gas_check]');
+            gasButtons.forEach(function(button) {
+               button.addEventListener('change', function() {
+                  var appliance_val = document.querySelector('input[type=radio][name=appliance_desc]:checked').value;
+                  var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
+                  var smoke_appl_check = document.querySelector('input[type=radio][name=smoke_check]:checked').value;
+
+                  if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check !== '') {
+                     window.location.href = "/nonusers/submit";
+                  } else if (smoke_appl_check !== '' && gas_appl_check !== '') {
+                     window.location.href = "/nonusers/submit";
+                  }
+               });
+            });
+
+            var smokeButtons = document.querySelectorAll('input[type=radio][name=smoke_check]');
+            smokeButtons.forEach(function(button) {
+               button.addEventListener('change', function() {
+                  var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
+                  var smoke_appl_check = document.querySelector('input[type=radio][name=smoke_check]:checked').value;
+
+                  if (smoke_appl_check !== '' && gas_appl_check !== '') {
+                     window.location.href = "/nonusers/submit";
+                  }
+               });
+            });
+
+            var meterButtons = document.querySelectorAll('input[type=radio][name=meter_desc]');
+            meterButtons.forEach(function(button) {
+               button.addEventListener('change', function() {
+                  var meter_val = document.querySelector('input[type=radio][name=meter_desc]:checked').value;
+
+                  if (meter_val !== 'meter_desc3' && meter_val !== 'meter_desc6') {
+                     window.location.href = "/nonusers/submit";
+                  }
+               });
+            });
+         }
+      });
+   });
+});
+
 </script>
 
 
