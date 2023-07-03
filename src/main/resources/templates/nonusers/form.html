@@ -388,20 +388,6 @@ $(document).ready(function() {
   });
 
 
-  $('input[type=radio][name=glass_hit]').change(function() {
-      window.location.href = "/nonusers/submit";
-    
-    });
-
-    $('input[type=radio][name=gas_meter_check]').change(function() {
-      window.location.href = "/nonusers/submit";
-    
-    });
-
-    $('input[type=radio][name=reg_check]').change(function() {
-      window.location.href = "/nonusers/submit";
-    
-    });
 
 
   var totalRadioButtons = 6;
@@ -419,6 +405,8 @@ $(document).ready(function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+
+
    var initButtons = document.querySelectorAll('input[type=radio][name=response_type], input[type=radio][name=building_type]');
 
    initButtons.forEach(function(button) {
@@ -427,16 +415,30 @@ document.addEventListener('DOMContentLoaded', function() {
          var building_val = document.querySelector('input[type=radio][name=building_type]:checked');
 
          if (response_val !== null && building_val !== null) {
+            $('input[type=radio][name=glass_hit]').change(function() {
+            window.location.href = "/nonusers/submit";
+         
+         });
+
+         $('input[type=radio][name=gas_meter_check]').change(function() {
+            window.location.href = "/nonusers/submit";
+         
+         });
+
+         $('input[type=radio][name=reg_check]').change(function() {
+            window.location.href = "/nonusers/submit";
+         
+         });
+
+
             var gasButtons = document.querySelectorAll('input[type=radio][name=gas_check]');
             gasButtons.forEach(function(button) {
                button.addEventListener('change', function() {
                   var appliance_val = document.querySelector('input[type=radio][name=appliance_desc]:checked').value;
                   var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
-                  var smoke_appl_check = document.querySelector('input[type=radio][name=smoke_check]:checked').value;
-
-                  if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check !== '') {
-                     window.location.href = "/nonusers/submit";
-                  } else if (smoke_appl_check !== '' && gas_appl_check !== '') {
+                  console.log(appliance_val);
+                  if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check != '') {
+                     
                      window.location.href = "/nonusers/submit";
                   }
                });
