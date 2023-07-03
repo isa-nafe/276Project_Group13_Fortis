@@ -23,6 +23,13 @@ public class NonUser {
         this.address = address;
         this.phone = phone;
     }
+    public NonUser(int id, String name, String last_name, String address, String phone) {
+        this.nuid = id;
+        this.name = name;
+        this.last_name = last_name;
+        this.address = address;
+        this.phone = phone;
+    }
 
     public int getNuid() {
         return nuid;
