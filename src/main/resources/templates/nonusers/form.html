@@ -36,8 +36,12 @@
                     <img th:src="@{/imgs/logo.png}" width="100" height="25" alt="Logo" class="logo-img">
                   </div>
                   <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
-                  
+                 
+                
                   <form th:object="${nonUser}">
+                    <div th:if="${errorMessage}">
+                      <p th:text="${errorMessage}"></p>
+                  </div>
                   <div class="form-outline mb-4">
                     <input type="text" id="signup_FirstName" name="name" placeholder="Name" th:field="*{name}" class="form-control form-control-lg" />
                   </div>
@@ -298,21 +302,7 @@
 $(document).ready(function() {
 
 
-
-            var totalRadioButtons = 6;
-            // Calculate the width increment for each radio button
-            var widthIncrement = 100 / totalRadioButtons;
-
-            // Listen for radio button change event
-            $('input[type=radio]').change(function() {
-               var checkedRadioButtons = $('input[type=radio]:checked').length;
-               var progressBarWidth = checkedRadioButtons * widthIncrement;
-               $('.progress-bar').css('width', progressBarWidth + '%').attr('aria-valuenow', progressBarWidth);
-            });
-
-
-
-
+  
   // Listen for radio button change event
   $('input[type=radio][name=emergency_nature]').change(function() {
     var selectedValue = $(this).val();
@@ -394,6 +384,18 @@ $(document).ready(function() {
       $('#meter_regulator').collapse('hide');
       $('#meter_gas').collapse('hide');
     }
+  });
+
+
+  var totalRadioButtons = 6;
+  // Calculate the width increment for each radio button
+  var widthIncrement = 100 / totalRadioButtons;
+
+  // Listen for radio button change event
+  $('input[type=radio]').change(function() {
+      var checkedRadioButtons = $('input[type=radio]:checked').length;
+      var progressBarWidth = checkedRadioButtons * widthIncrement;
+      $('.progress-bar').css('width', progressBarWidth + '%').attr('aria-valuenow', progressBarWidth);
   });
 
 
