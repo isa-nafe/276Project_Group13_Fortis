@@ -60,8 +60,33 @@
                   </div>
                   </form>
 
-
-
+                  <script src=
+                  "https://smtpjs.com/v3/smtp.js">
+                </script>
+                
+                <script type="text/javascript">
+                  function sendEmail() {
+                    Email.send({
+                      Host: "smtp.gmail.com",
+                      Username: "postolovcameron@gmail.com",
+                      Password: "pehsof-soZgup-vihso3",
+                      To: 'ivanpostolov03@mail.ru',
+                      From: "postolovcameron@gmail.com",
+                      Subject: "Sending Email using javascript",
+                      Body: "Well that was easy!!",
+                    })
+                      .then(function (message) {
+                        alert("mail sent successfully")
+                      });
+                  }
+                </script>
+              </head>
+                
+              <body>
+                <form method="post">
+                  <input type="button" value="Send Email" 
+                      onclick="sendEmail()" />
+                </form>
 
                            <!-- Initial set of questions -->
                            <p class="fs-4">Is this:</p>
