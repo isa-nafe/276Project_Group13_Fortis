@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
                   console.log(appliance_val);
                   if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check != '') {
-                     
+                     // Redirect when certain conditions are met
                      window.location.href = "/nonusers/submit";
                   }
                });
@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   var smoke_appl_check = document.querySelector('input[type=radio][name=smoke_check]:checked').value;
 
                   if (smoke_appl_check !== '' && gas_appl_check !== '') {
+                    // Redirect when both 'smoke_check' and 'gas_check' radio buttons are checked
                      window.location.href = "/nonusers/submit";
                   }
                });
@@ -159,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
                button.addEventListener('change', function() {
                   var meter_val = document.querySelector('input[type=radio][name=meter_desc]:checked').value;
 
+                  // Redirect when conditions are not met
                   if (meter_val !== 'meter_desc3' && meter_val !== 'meter_desc6') {
                      window.location.href = "/nonusers/submit";
                   }
