@@ -59,6 +59,28 @@ public class NonUserController {
         return "nonusers/form";
     }
 
+    @PostMapping("/nonusers/edit")
+    public String editStudent(@RequestParam Map<String, String> newnonuser, Model model, RedirectAttributes redirectAttributes) {
+        // Student student = studRepo.findById(id).get();
+        // int sid = Integer.parseInt(newnonuser.get("nuid"));
+        System.out.println("edit nonuser: ");
+        // int id = Integer.parseInt(sid);
+        String newPhone = newnonuser.get("phone");
+        NonUser non = nonUserRepo.findByPhone(newPhone);
+        String newName = newnonuser.get("name");
+        String newLast = newnonuser.get("last_name");
+        String newAddress = newnonuser.get("address");
+        if (non != null) {
+            non.setName(newName);
+            non.setLast_name(newLast);
+            non.setAddress(newAddress);
+            non.setPhone(newPhone);
+            // Update other attributes if needed
+            nonUserRepo.save(non);
+        }
+        redirectAttributes.addAttribute("phone", newPhone);
+        return "redirect:/nonusers/form";
+    }
 
     @PostMapping("/nonusers/add")
     public String addNonUser(@RequestParam Map<String, String> newnonuser,HttpServletResponse response, RedirectAttributes redirectAttributes){

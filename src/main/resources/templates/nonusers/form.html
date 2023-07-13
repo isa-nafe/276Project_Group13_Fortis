@@ -41,7 +41,7 @@
                            <img th:src="@{/imgs/logo.svg.png}" width="30%" height="25%" alt="Logo" class="logo-img">
                         </div>
                         <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
-                        <form th:object="${nonUser}">
+                        <form th:object="${nonUser}" action="/nonusers/edit" method="post" id="userInfo">
                            <div th:if="${errorMessage}">
                               <p th:text="${errorMessage}"></p>
                            </div>
@@ -58,40 +58,37 @@
                               <input type="text" id="signup_Address" name="address" placeholder="Address" th:field="*{address}" class="form-control form-control-lg" />
                            </div>
 
-
-
-
-
-
-
                            <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-   Launch demo modal
- </button>
- 
- <!-- Modal -->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-       </div>
-       <div class="modal-body">
-         ...
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-         <button type="button" class="btn btn-primary">Save changes</button>
-       </div>
-     </div>
-   </div>
- </div>
+                       
                         </form>
                      </div>
+                     
 
-
-
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
+                     </button>
+                     
+                     <!-- Modal -->
+                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                           </div>
+                           <div class="modal-body">
+                           </div>
+                           <div class="p-3 m-0 border-0 bd-example m-0 border-0">
+                              Provide additional details
+                              <textarea class="form-control" aria-label="With textarea"></textarea>
+                            </div>
+                           <div class="modal-footer">
+                              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                              <button id="externalButton" type="button" class="btn btn-primary" onclick="sendEmail();  ">Submit</button>
+                           </div>
+                        </div>
+                        </div>
+                     </div>
 
 
 
