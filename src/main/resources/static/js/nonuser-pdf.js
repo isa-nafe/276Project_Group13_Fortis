@@ -6,7 +6,7 @@ function print(){
 var elementHTML = document.querySelector("#printContent");
 docPDF.html(elementHTML, {
  callback: function(docPDF) {
-  docPDF.save('HTML Linuxhint web page.pdf');
+  docPDF.save('emergency_form_input.pdf');
  },
  x: 15,
  y: 15,
@@ -14,7 +14,3 @@ docPDF.html(elementHTML, {
  windowWidth: 650
 });
 }
-    
-// document.addEventListener('DOMContentLoaded', function() {
-  
-// })
