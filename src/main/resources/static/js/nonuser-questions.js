@@ -139,70 +139,145 @@ $(document).ready(function() {
  });
  
  document.addEventListener('DOMContentLoaded', function() {
- 
-    
-    var initButtons = document.querySelectorAll('input[type=radio][name=response_type], input[type=radio][name=building_type]');
- 
-    initButtons.forEach(function(button) {
+   // Get the modal
+   var modal = document.getElementById("exampleModal");
+   
+   var initButtons = document.querySelectorAll('input[type=radio][name=response_type], input[type=radio][name=building_type]');
+   initButtons.forEach(function(button) {
        button.addEventListener('change', function() {
-          var response_val = document.querySelector('input[type=radio][name=response_type]:checked');
-          var building_val = document.querySelector('input[type=radio][name=building_type]:checked');
- 
-          if (response_val !== null && building_val !== null) {
-             $('input[type=radio][name=glass_hit]').change(function() {
-             window.location.href = "/nonusers/submit";
-          
-          });
- 
-          $('input[type=radio][name=gas_meter_check]').change(function() {
-             window.location.href = "/nonusers/submit";
-          
-          });
- 
-          $('input[type=radio][name=reg_check]').change(function() {
-             window.location.href = "/nonusers/submit";
-          
-          });
- 
- 
-             var gasButtons = document.querySelectorAll('input[type=radio][name=gas_check]');
-             gasButtons.forEach(function(button) {
-                button.addEventListener('change', function() {
-                   var appliance_val = document.querySelector('input[type=radio][name=appliance_desc]:checked').value;
-                   var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
-                   console.log(appliance_val);
-                   if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check != '') {
-                      // Redirect when certain conditions are met
-                      window.location.href = "/nonusers/submit";
+           var response_val = document.querySelector('input[type=radio][name=response_type]:checked');
+           var building_val = document.querySelector('input[type=radio][name=building_type]:checked');
+
+           var dbKeyMapping = {
+               'appliance_desc1': 'DB8',
+               'appliance_desc2': 'DB9',
+               'appliance_desc3': 'DB9',
+               'appliance_desc4': 'DB11',
+               'appliance_desc5': 'DB11',
+               'appliance_desc6': 'DB88',
+               'gas_check1': 'DB9',
+               'gas_check2': 'DB14',
+               'glass_hit1': 'DB88',
+               'glass_hit2': 'DB9',
+               'smoke_check1': 'DB11',
+               'smoke_check2': 'DB13',
+               'emergency_nature2': 'DB14',
+               'response_type1': 'DB14',
+               'response_type2': 'DB9',
+
+               'meter_desc1': 'DB14',
+               'meter_desc2': 'DB14',
+               'meter_desc4': 'DB26',
+               'meter_desc5': 'DB14',
+               'reg_check1': 'DB14',
+               'reg_check2': 'DB15',
+               'gas_meter_check2': 'DB15',
+           };
+
+           if (response_val !== null && building_val !== null) {
+               $('input[type=radio][name=glass_hit]').change(function() {
+                  var val = this.value;
+                  console.log("val:", val);
+                  console.log("dbKeyMapping[val]:", dbKeyMapping[val]);
+                  var dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[val]];
+                  console.log("dbText:", dbText);
+                   if (dbText) {
+                       document.getElementById("modalBody").innerHTML = dbText;
+                       $(modal).modal('show');
                    }
-                });
-             });
- 
-             var smokeButtons = document.querySelectorAll('input[type=radio][name=smoke_check]');
-             smokeButtons.forEach(function(button) {
-                button.addEventListener('change', function() {
-                   var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
-                   var smoke_appl_check = document.querySelector('input[type=radio][name=smoke_check]:checked').value;
- 
-                   if (smoke_appl_check !== '' && gas_appl_check !== '') {
-                     // Redirect when both 'smoke_check' and 'gas_check' radio buttons are checked
-                      window.location.href = "/nonusers/submit";
+               });
+
+               $('input[type=radio][name=gas_meter_check]').change(function() {
+                  var val = this.value;
+                  console.log("val:", val);
+                  console.log("dbKeyMapping[val]:", dbKeyMapping[val]);
+                  var dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[val]];
+                  console.log("dbText:", dbText);
+                   if (dbText) {
+                       document.getElementById("modalBody").innerHTML = dbText;
+                       $(modal).modal('show');
                    }
-                });
-             });
- 
-             var meterButtons = document.querySelectorAll('input[type=radio][name=meter_desc]');
-             meterButtons.forEach(function(button) {
-                button.addEventListener('change', function() {
-                   var meter_val = document.querySelector('input[type=radio][name=meter_desc]:checked').value;
- 
-                   // Redirect when conditions are not met
-                   if (meter_val !== 'meter_desc3' && meter_val !== 'meter_desc6') {
-                      window.location.href = "/nonusers/submit";
+               });
+
+               $('input[type=radio][name=reg_check]').change(function() {
+                  var val = this.value;
+                  console.log("val:", val);
+                  console.log("dbKeyMapping[val]:", dbKeyMapping[val]);
+                  var dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[val]];
+                  console.log("dbText:", dbText);
+                   if (dbText) {
+                       document.getElementById("modalBody").innerHTML = dbText;
+                       $(modal).modal('show');
                    }
-                });
-             });
-          }
+               });
+
+               var gasButtons = document.querySelectorAll('input[type=radio][name=gas_check]');
+               gasButtons.forEach(function(button) {
+                   button.addEventListener('change', function() {
+                       var appliance_val = document.querySelector('input[type=radio][name=appliance_desc]:checked').value;
+                       var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
+                       var response_val = document.querySelector('input[type=radio][name=response_type]:checked').value;
+                       var emergency_val = document.querySelector('input[type=radio][name=emergency_nature]:checked').value;
+                       var glass_hit = document.querySelector('input[type=radio][name=glass_hit]:checked').value;
+                      
+                       //conditionals for appliences 
+                       if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check != '') {
+                           var dbText;
+                           if (response_val === 'response_type1') { 
+                               dbText = Dialogue_Boxes_Dictionary['DB14'];
+                           } else if (glass_hit === 'glass_hit1') { 
+                               dbText = Dialogue_Boxes_Dictionary['DB88'];
+                           } else if (gas_appl_check === 'gas_check1') { 
+                               if (appliance_val === 'appliance_desc4') { 
+                                   dbText = Dialogue_Boxes_Dictionary['DB11'];
+                               } else {
+                                   dbText = Dialogue_Boxes_Dictionary['DB9'];
+                               }
+                           } else { 
+                               dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[appliance_val]];
+                           }
+               
+                           if (dbText) {
+                               document.getElementById("modalBody").innerHTML = dbText;
+                               $(modal).modal('show');
+                           }
+                       }
+                   });
+               });
+
+               var smokeButtons = document.querySelectorAll('input[type=radio][name=smoke_check]');
+               smokeButtons.forEach(function(button) {
+                   button.addEventListener('change', function() {
+                       var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
+                       var smoke_appl_check = document.querySelector('input[type=radio][name=smoke_check]:checked').value;
+
+                       if (smoke_appl_check !== '' && gas_appl_check !== '') {
+                           var dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[smoke_appl_check]];
+                           if (dbText) {
+                               document.getElementById("modalBody").innerHTML = dbText;
+                               $(modal).modal('show');
+                           }
+                       }
+                   });
+               });
+
+               var meterButtons = document.querySelectorAll('input[type=radio][name=meter_desc]');
+               meterButtons.forEach(function(button) {
+                   button.addEventListener('change', function() {
+                       var meter_val = document.querySelector('input[type=radio][name=meter_desc]:checked').value;
+
+                       if (meter_val !== 'meter_desc3' && meter_val !== 'meter_desc6') {
+                           var dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[meter_val]];
+                           if (dbText) {
+                               document.getElementById("modalBody").innerHTML = dbText;
+                               $(modal).modal('show');
+                           }
+                       }
+                   });
+               });
+           }
        });
-    });
- });
+   });
+});
+
+
