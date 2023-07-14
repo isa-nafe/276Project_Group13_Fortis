@@ -22,12 +22,18 @@ var docPDF = new jsPDF();
 function sendEmail() {
 	
     var elementHTML = document.querySelector("#printContent");
-    docPDF.html(elementHTML, {
+    var additionalDetails = document.getElementById('additionalDetails').value;
+    docPDF.text('Additional Details:', 10, 10);
+    docPDF.text(additionalDetails, 10, 20);
+    docPDF.addPage();
+    docPDF.html( elementHTML, {
       callback: function (docPDF) {
-        //docPDF.save('emergency_form_input.pdf');
         var fileReader = new FileReader();
         fileReader.onload = function (event) {
+          
           var pdfBase64 = event.target.result;
+          
+          docPDF.save('emergency_form_input.pdf');
           Email.send({
             Host: "smtp.elasticemail.com",
             Username: "emergency-form@cmpt276.com",
