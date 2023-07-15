@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+         rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" th:href="@{/signup.css}">
+      <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+      <script th:src="@{/js/jquery.min.js}" defer></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+      <script src="https://smtpjs.com/v3/smtp.js"></script>
+      <script th:src="@{/js/bootstrap.min.js}" defer></script>
+      <script type="text/javascript" th:src="@{/js/user-pdf.js}" defer></script>
+      <script type="text/javascript" th:src="@{/js/nonuser-questions.js}" defer></script>
+      <title>Emergency Form</title>
+   </head>
+   <body>
+
+
+
+      <!-- Progress bar -->
+      <div class="progress-container">
+         <div class="progress" style="height: 10px;">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+         </div>
+      </div>
+      <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+         <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+               <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                  <div class="card" style="border-radius: 15px;" id="printContent">
+                     <div class="card-body p-5">
+                        <div class="text-center mb-5">
+                           <img th:src="@{/imgs/logo.svg.png}" width="30%" height="25%" alt="Logo" class="logo-img">
+                        </div>
+                        <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
+                        <form th:object="${user}" id="userInfo">
+                           <div th:if="${errorMessage}">
+                              <p th:text="${errorMessage}"></p>
+                           </div>
+                           <div class="form-outline mb-4">
+                              <input type="text" id="signup_FirstName" name="name" placeholder="Name" th:field="*{name}" class="form-control form-control-lg" />
+                           </div>
+                           <div class="form-outline mb-4">
+                              <input type="text" id="signup_LastName" name="last_name" placeholder="Last Name" th:field="*{last_name}" class="form-control form-control-lg" />
+                           </div>
+                           <div class="form-outline mb-4">
+                              <input type="text" id="signup_Phone" name="phone" placeholder="Phone number" th:field="*{phone}" class="form-control form-control-lg" />
+                           </div>
+                           <div class="form-outline mb-4">
+                              <input type="text" id="signup_Address" name="address" placeholder="Address" th:field="*{address}" class="form-control form-control-lg" />
+                           </div>
+
+                           <!-- Button trigger modal -->
+                       
+                        </form>
+                     </div>
+                     
+
+
+
+                     <!-- Initial set of questions -->
+                     <div class="card card-body">
+                        <p class="fs-4">Is this:</p>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="response_type" id="response_type1">
+                           <label class="form-check-label" for="response_type1">
+                           Fire Department or First Response
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="response_type" id="response_type2">
+                           <label class="form-check-label" for="response_type2">
+                           General Public
+                           </label>
+                        </div>
+                     </div>
+
+
+
+                     <div class="card card-body">
+                        <p class="fs-4">What is the type of building:</p>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="building_type" value="building_type1">
+                           <label class="form-check-label" for="building_type1">
+                           Public Use Building
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="building_type" value="building_type2">
+                           <label class="form-check-label" for="building_type2">
+                           Residential / Private Use Building
+                           </label>
+                        </div>
+                     </div>
+
+
+
+                     <div class="card card-body">
+                        <p class="fs-4">What is the nature of this Emergency:</p>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="emergency_nature" value="emergency_nature1">
+                           <label class="form-check-label" for="emergency_nature1">
+                           Meter Hazard
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="emergency_nature" value="emergency_nature2">
+                           <label class="form-check-label" for="emergency_nature2">
+                           Appliance / Heating System / Hot Water Tank
+                           </label>
+                        </div>
+                     </div>
+
+
+
+                     <!-- Appliance set of questions -->
+                     <div class="collapse" id="appliance_choose">
+                        <div class="card card-body">
+                           <p class="fs-4">Choose the description of your problem:</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="appliance_desc" value="appliance_desc1">
+                              <label class="form-check-label" for="appliance_desc1">
+                              Hot Water Tank Leaking OR burst
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="appliance_desc" value="appliance_desc2">
+                              <label class="form-check-label" for="appliance_desc2">
+                              Heating System "BOOMs" on start-up
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="appliance_desc" value="appliance_desc3">
+                              <label class="form-check-label" for="appliance_desc3">
+                              Fireplace Glass Shattered OR Cracked
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="appliance_desc" value="appliance_desc4">
+                              <label class="form-check-label" for="appliance_desc4">
+                              Flames Rolling out of Appliance
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="appliance_desc" value="appliance_desc5">
+                              <label class="form-check-label" for="appliance_desc5">
+                              Overheating / Unable to Turn off Gas to Appliance
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="appliance_desc" value="appliance_desc6">
+                              <label class="form-check-label" for="appliance_desc6">
+                              Appliance Not Working
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+                     <!-- Appliance gas -->
+                     <div class="collapse" id="appliance_gas">
+                        <div class="card card-body">
+                           <p class="fs-4">Do you smell gas?</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gas_check" value="gas_check1">
+                              <label class="form-check-label" for="gas_check1">
+                              Yes
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gas_check" value="gas_check2">
+                              <label class="form-check-label" for="gas_check2">
+                              No
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+                     <!-- Appliance glass hit -->
+                     <div class="collapse" id="glass_hit">
+                        <div class="card card-body">
+                           <p class="fs-4">Was the glass hit by an object?</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="glass_hit" value="glass_hit1">
+                              <label class="form-check-label" for="glass_hit1">
+                              Yes
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="glass_hit" value="glass_hit2">
+                              <label class="form-check-label" for="glass_hit2">
+                              No
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+                     <!-- Appliance smoke -->
+                     <div class="collapse" id="appliance_smoke">
+                        <div class="card card-body">
+                           <p class="fs-4">Do you smell smoke?</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="smoke_check" value="smoke_check1">
+                              <label class="form-check-label" for="smoke_check1">
+                              Yes
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="smoke_check" value="smoke_check2">
+                              <label class="form-check-label" for="smoke_check2">
+                              No
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+                     <!-- Meter set of questions -->
+                     <div class="collapse" id="meter_choose">
+                        <div class="card card-body">
+                           <p class="fs-4">Choose the description of your problem:</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="meter_desc" value="meter_desc1">
+                              <label class="form-check-label" for="meter_desc1">
+                              Packed Snow/Ice
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="meter_desc" value="meter_desc2">
+                              <label class="form-check-label" for="meter_desc2">
+                              Meter Wrapped/Covered
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="meter_desc" value="meter_desc3">
+                              <label class="form-check-label" for="meter_desc3">
+                              Meter Under Water
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="meter_desc" value="meter_desc4">
+                              <label class="form-check-label" for="meter_desc4">
+                              Meter Covered With Snow
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="meter_desc" value="meter_desc5">
+                              <label class="form-check-label" for="meter_desc5">
+                              Overhead Meter Hazard
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="meter_desc" value="meter_desc6">
+                              <label class="form-check-label" for="meter_desc6">
+                              Noisy Meter
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+                     <!-- Meter regulator -->
+                     <div class="collapse" id="meter_regulator">
+                        <div class="card card-body">
+                           <p class="fs-4">Is the Meter Regulator also immersed?</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="reg_check" value="reg_check1">
+                              <label class="form-check-label" for="reg_check1">
+                              Yes
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="reg_check" value="reg_check2">
+                              <label class="form-check-label" for="reg_check2">
+                              No
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+                     <!-- Meter gas -->
+                     <div class="collapse" id="meter_gas">
+                        <div class="card card-body">
+                           <p class="fs-4">Do you smell gas?</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gas_meter_check" value="gas_meter_check1">
+                              <label class="form-check-label" for="gas_meter_check1">
+                              Yes
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gas_meter_check" value="gas_meter_check2">
+                              <label class="form-check-label" for="gas_meter_check2">
+                              No
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+
+
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog" id="advise_modal">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalBody">
+                        </div>
+                        <div class="p-3 m-0 border-0 bd-example m-0 border-0">
+                           Provide additional details
+                           <textarea class="form-control" aria-label="With textarea" id="additionalDetails"></textarea>
+                         </div>
+                        <div class="modal-footer">
+                           <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                           <button id="externalButton" type="button" class="btn btn-primary" onclick="sendEmail();  ">Submit</button>
+                        </div>
+                     </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+   </body>
+</html>
