@@ -39,18 +39,18 @@
                     <img th:src="@{/imgs/logo.svg.png}" width="30%" height="25%" alt="Logo" class="logo-img">
                   </div>
                   <h2 class="text-uppercase text-center mb-5">Log in into account</h2>
-                  <form>
+                  <form th:action="@{/users/login}" method="post">
                     <div class="form-outline mb-4">
-                      <input type="text" id="signup_FirstName" placeholder="Email" class="form-control form-control-lg" />
+                      <input type="text" name="email" id="signup_FirstName" placeholder="Email" class="form-control form-control-lg"  />
                     </div>
                     <div class="form-outline mb-4">
-                        <input type="text" id="signup_LastName" placeholder="Password" class="form-control form-control-lg" />
+                        <input type="text" name="password" id="signup_LastName" placeholder="Password" class="form-control form-control-lg"  />
                       </div>
                       
                     <div>
                         <div class="d-flex ">
-                        <button type="button"
-                            class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Register</button>
+                        <button type="submit"
+                            class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Login</button>
                             <a href="../nonusers/open" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" role="button">Back</a>
                         <button type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">
                           <img scr="@{/imgs/google-logo.png}">Google Login
@@ -60,7 +60,6 @@
                         </button>
                         </div>
                     </div>
-                    
                     </div>
                   </form>
                 </div>

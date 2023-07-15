@@ -12,14 +12,14 @@ public class User {
     private String name;
     private String last_name;
     private String address;
-    private Number phone;
+    private String phone;
     private String email;
     private String password;
 
     public User() {
     }
 
-    public User(int uid, String name, String last_name, String address, Number phone, String email, String password) {
+    public User(int uid, String name, String last_name, String address, String phone, String email, String password) {
         this.uid = uid;
         this.name = name;
         this.last_name = last_name;
@@ -61,11 +61,11 @@ public class User {
         this.address = address;
     }
 
-    public Number getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Number phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
