@@ -1,6 +1,12 @@
 package com.fortis_form.fortis_form.models;
 
-import jakarta.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Table(name="users")
@@ -83,6 +89,17 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
+
+        public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
 }
