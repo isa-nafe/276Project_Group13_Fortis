@@ -1,7 +1,7 @@
 var Dialogue_Boxes_Dictionary = {
    DB1: "CONFIRM the following information with the customer by READING BACK:\n1) CALLER or CONTACT TELEPHONE NUMBERn2) CALLER or CONTACT NAME\n3) Address given by caller - CITY, TOWN, STREET NAME, CROSS STREETS\n4) Advise caller that someone MUST BE ON SITE to meet the technician",
 
-   DB2: "CSR:  Confirm with caller if multiple appliances are not working or if a single appliance is not working\n- If multiple appliances are not working, cancel form and create meter investigate “urgent” service order.  (If after hours (4:00 pm – 7:30 am), phone Dispatch at 613-745-1576 option 7)\n- If single appliance only, advise customer:   Check your telephone listings for a licensed gas fitter, and arrange to have your gas appliances inspected and serviced if required.",
+   DB8: "CSR:  Confirm with caller if multiple appliances are not working or if a single appliance is not working\n- If multiple appliances are not working, cancel form and create meter investigate “urgent” service order.  (If after hours (4:00 pm – 7:30 am), phone Dispatch at 613-745-1576 option 7)\n- If single appliance only, advise customer:   Check your telephone listings for a licensed gas fitter, and arrange to have your gas appliances inspected and serviced if required.",
    
    DB9: "Advise Caller - We will IMMEDIATELY dispatch a technician to investigate.  The technician will make the situation safe; however, they will not make repairs to appliances.  Here are some safety precautions to follow until we arrive.\n\nDO NOT:\n-Light matches or cigarettes\n-Turn your electric lights ON or OFF\n-Use your electric appliances\n-Use the telephone after this call at the location of the emergency\n\nDO:\n-Open doors and windows to allow ventilation\n-Leave building, ensuring someone will be on-site to meet the technician and provide access\n\n*When technician arrives gas will be shut off if they cannot gain access:\n\nIf the appliance is: a gas dryer, range, stove or fireplace - SWITCH OFF IMMEDIATELY\n\nIf a furnace:  TURN THERMOSTAT DOWN UNTIL  FURNACE SWITCHES OFF\n\nPhone Zone Dispatch at 613-745-1576",
 
@@ -30,8 +30,6 @@ var Dialogue_Boxes_Dictionary = {
    DB25: "Advise Caller - We will IMMEDIATELY dispatch a technician to investigate. (If caller is no longer at the location or is a meter reader, FortisBC contractor or dispatcher DO NOT READ OUT THE SAFETY PRECAUTIONS)  Otherwise advise the caller:  Here are some safety precautions to follow until we arrive.\n\nDO NOT:\n-Light matches or cigarettes\n-Use anything that could create a spark or flame, including vehicles, telephones, and machinery\n-Undertake any corrective action\n\nDO:\n-Stay clear of the affected area, but remain nearby in a safe location to meet the technician\n-Call back with a contact telephone number if evacuating the area\n-Keep doors and windows closed to prevent gas from entering the building\n-If you begin to smell gas inside the building, you should ventilate on the opposite side from where the odour is coming from\n\nWhen tech arrives gas will be shut off if they cannot gain access.\n\nPhone Zone Dispatch at 613-745-1576",
    
    DB26: "Advise Caller - We will dispatch a technician TODAY to investigate",
-
-
 }
 
 $(document).ready(function() {
@@ -154,10 +152,10 @@ $(document).ready(function() {
                'appliance_desc3': 'DB9',
                'appliance_desc4': 'DB11',
                'appliance_desc5': 'DB11',
-               'appliance_desc6': 'DB88',
+               'appliance_desc6': 'DB8',
                'gas_check1': 'DB9',
                'gas_check2': 'DB14',
-               'glass_hit1': 'DB88',
+               'glass_hit1': 'DB8',
                'glass_hit2': 'DB9',
                'smoke_check1': 'DB11',
                'smoke_check2': 'DB13',
@@ -176,6 +174,7 @@ $(document).ready(function() {
 
            if (response_val !== null && building_val !== null) {
                $('input[type=radio][name=glass_hit]').change(function() {
+
                   var val = this.value;
                   console.log("val:", val);
                   console.log("dbKeyMapping[val]:", dbKeyMapping[val]);
@@ -217,16 +216,20 @@ $(document).ready(function() {
                        var appliance_val = document.querySelector('input[type=radio][name=appliance_desc]:checked').value;
                        var gas_appl_check = document.querySelector('input[type=radio][name=gas_check]:checked').value;
                        var response_val = document.querySelector('input[type=radio][name=response_type]:checked').value;
-                       var emergency_val = document.querySelector('input[type=radio][name=emergency_nature]:checked').value;
-                       var glass_hit = document.querySelector('input[type=radio][name=glass_hit]:checked').value;
+
+                       if (response_val === 'response_type1' && gas_appl_check !== ''){
+                        dbText = Dialogue_Boxes_Dictionary['DB14'];
+                       }
                       
-                       //conditionals for appliences 
-                       if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check != '') {
+                       else if (appliance_val === 'appliance_desc4' && gas_appl_check === 'gas_check1'){
+                        dbText = Dialogue_Boxes_Dictionary['DB14'];
+                       }
+
+                       
+                       else if ((appliance_val === 'appliance_desc1' || appliance_val === 'appliance_desc2' || appliance_val === 'appliance_desc6') && gas_appl_check !== '') {
                            var dbText;
-                           if (response_val === 'response_type1') { 
-                               dbText = Dialogue_Boxes_Dictionary['DB14'];
-                           } else if (glass_hit === 'glass_hit1') { 
-                               dbText = Dialogue_Boxes_Dictionary['DB88'];
+                             if (glass_hit === 'glass_hit1') { 
+                               dbText = Dialogue_Boxes_Dictionary['DB8'];
                            } else if (gas_appl_check === 'gas_check1') { 
                                if (appliance_val === 'appliance_desc4') { 
                                    dbText = Dialogue_Boxes_Dictionary['DB11'];
@@ -237,14 +240,18 @@ $(document).ready(function() {
                                dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[appliance_val]];
                            }
                
-                           if (dbText) {
-                               document.getElementById("modalBody").innerHTML = dbText;
-                               $(modal).modal('show');
-                           }
+                           
                        }
+
+                       if (dbText) {
+                        document.getElementById("modalBody").innerHTML = dbText;
+                        $(modal).modal('show');
+                    }
                    });
                });
 
+
+               
                var smokeButtons = document.querySelectorAll('input[type=radio][name=smoke_check]');
                smokeButtons.forEach(function(button) {
                    button.addEventListener('change', function() {
@@ -252,6 +259,7 @@ $(document).ready(function() {
                        var smoke_appl_check = document.querySelector('input[type=radio][name=smoke_check]:checked').value;
 
                        if (smoke_appl_check !== '' && gas_appl_check !== '') {
+
                            var dbText = Dialogue_Boxes_Dictionary[dbKeyMapping[smoke_appl_check]];
                            if (dbText) {
                                document.getElementById("modalBody").innerHTML = dbText;
@@ -260,6 +268,8 @@ $(document).ready(function() {
                        }
                    });
                });
+
+
 
                var meterButtons = document.querySelectorAll('input[type=radio][name=meter_desc]');
                meterButtons.forEach(function(button) {
@@ -279,5 +289,4 @@ $(document).ready(function() {
        });
    });
 });
-
 
