@@ -7,6 +7,26 @@
     rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="signup.css">
     <title>Sign in</title>
+
+    <style>
+      .google-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 10px 20px;
+        border: none;
+        background-color: #4285F4;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .google-button img {
+        width: 20px;
+        height: 20px;
+      }
+    </style>
 </head>
 <body>
     <div class="mask d-flex align-items-center h-100">
@@ -32,6 +52,12 @@
                         <button type="button"
                             class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Register</button>
                             <a href="../nonusers/open" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" role="button">Back</a>
+                        <button type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">
+                          <img scr="@{/imgs/google-logo.png}">Google Login
+                        </button>
+                        <button type="button" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left">
+                          <img scr="@{/imgs/facebook-logo.png}">Facebook Login
+                        </button>
                         </div>
                     </div>
                     
