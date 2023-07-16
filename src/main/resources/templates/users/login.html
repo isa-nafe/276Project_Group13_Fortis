@@ -93,13 +93,6 @@
         }
         else {
           document.getElementById('status').innerHTML = 'Please log into this app.';
-
-          FB.login(function (response) {
-            console.log(response);
-          }, {
-              scope: 'email',
-              return_scopes: true
-            });
         }
       }
   
@@ -147,6 +140,12 @@
       function redirectToGoogle() {
         window.location.href = 'http://localhost:8080/oauth2/authorization/google';
       }
+      // FB.login(function (response) {
+      //       console.log(response);
+      //     }, {
+      //         scope: 'email',
+      //         return_scopes: true
+      //       });
     </script>
     
 </body>
