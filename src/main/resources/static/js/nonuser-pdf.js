@@ -2,7 +2,7 @@
 window.jsPDF = window.jspdf.jsPDF;
 var docPDF = new jsPDF();
 
-function sendEmail() {
+function sendEmail(topic) {
 
   // Retrieve form data
   var prompts = '';
@@ -94,28 +94,28 @@ function sendEmail() {
   docPDF.save('emergency_form_input.pdf');
 
 // email function (uncomment to work)
-//   Email.send({
-//     Host: 'smtp.elasticemail.com',
-//     Username: 'emergency-form@cmpt276.com',
-//     Password: '845BC7CA4184E311B4A8511564D6C1A1B4A7',
-//     To: 'ivanpostolov03@mail.ru',
-//     From: 'wertysytre@gmail.com',
-//     Port: '2525',
-//     Subject: 'Hello',
-//     Body: 'Hi',
-//     Attachments: [
-//       {
-//         name: 'emergency_form_input.pdf',
-//         data: docPDF.output('datauristring')
-//       }
-//     ]
-//   }).then(
-//     message => {
-//       alert('Mail sent successfully');
-//       console.log(message);
-//       $('#userInfo').submit();
-//     }
-//   );
+  Email.send({
+    Host: 'smtp.elasticemail.com',
+    Username: 'emergency-form@cmpt276.com',
+    Password: '845BC7CA4184E311B4A8511564D6C1A1B4A7',
+    To: 'ivanpostolov03@mail.ru',
+    From: 'wertysytre@gmail.com',
+    Port: '2525',
+    Subject: topic,
+    Body: 'Hi',
+    Attachments: [
+      {
+        name: 'emergency_form_input.pdf',
+        data: docPDF.output('datauristring')
+      }
+    ]
+  }).then(
+    message => {
+      alert('Mail sent successfully');
+      console.log(message);
+      $('#userInfo').submit();
+    }
+  );
 }
 
 

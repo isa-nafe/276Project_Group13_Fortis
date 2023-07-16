@@ -14,6 +14,7 @@
       <script src="https://smtpjs.com/v3/smtp.js"></script>
       <script th:src="@{/js/bootstrap.min.js}" defer></script>
       <script type="text/javascript" th:src="@{/js/user-pdf.js}" defer></script>
+      <script type="text/javascript" th:src="@{/js/nonuser-questions.js}" defer></script>
       <!-- <script type="text/javascript" th:src="@{/js/nonuser-questions.js}" defer></script> -->
       <title>Emergency Form</title>
    </head>
@@ -62,17 +63,18 @@
 
 
 
+
                      <!-- Initial set of questions -->
                      <div class="card card-body">
                         <p class="fs-4">Is this:</p>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="response_type" id="response_type1">
+                           <input class="form-check-input" type="radio" name="response_type" value="response_type1">
                            <label class="form-check-label" for="response_type1">
                            Fire Department or First Response
                            </label>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="response_type" id="response_type2">
+                           <input class="form-check-input" type="radio" name="response_type" value="response_type2">
                            <label class="form-check-label" for="response_type2">
                            General Public
                            </label>
@@ -80,40 +82,44 @@
                      </div>
 
 
-
-                     <div class="card card-body">
-                        <p class="fs-4">What is the type of building:</p>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="building_type" value="building_type1">
-                           <label class="form-check-label" for="building_type1">
-                           Public Use Building
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="building_type" value="building_type2">
-                           <label class="form-check-label" for="building_type2">
-                           Residential / Private Use Building
-                           </label>
-                        </div>
-                     </div>
-
-
-
-                     <div class="card card-body">
-                        <p class="fs-4">What is the nature of this Emergency:</p>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="emergency_nature" value="emergency_nature1">
-                           <label class="form-check-label" for="emergency_nature1">
-                           Meter Hazard
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="emergency_nature" value="emergency_nature2">
-                           <label class="form-check-label" for="emergency_nature2">
-                           Appliance / Heating System / Hot Water Tank
-                           </label>
+                     <div class="collapse" id="building_collapse">
+                        <div class="card card-body">
+                           <p class="fs-4">What is the type of building:</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="building_type" value="building_type1">
+                              <label class="form-check-label" for="building_type1">
+                              Public Use Building
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="building_type" value="building_type2">
+                              <label class="form-check-label" for="building_type2">
+                              Residential / Private Use Building
+                              </label>
+                           </div>
                         </div>
                      </div>
+                     
+
+
+                     <div class="collapse" id="emergency_collapse">
+                        <div class="card card-body">
+                           <p class="fs-4">What is the nature of this Emergency:</p>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="emergency_nature" value="emergency_nature1">
+                              <label class="form-check-label" for="emergency_nature1">
+                              Meter Hazard
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="emergency_nature" value="emergency_nature2">
+                              <label class="form-check-label" for="emergency_nature2">
+                              Appliance / Heating System / Hot Water Tank
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                     
 
 
 
