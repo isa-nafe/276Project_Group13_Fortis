@@ -61,7 +61,11 @@
                           <img scr="@{/imgs/google-logo.png}">Google Login
                         </button>
                         <button type="button" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" id="fb-login-button">
+<<<<<<< Updated upstream
                           <img scr="@{/imgs/facebook-logo.png}">Facebook Login  
+=======
+                          <img scr="@{/imgs/facebook-logo.png}">Facebook Login
+>>>>>>> Stashed changes
                         </button>
                         <fb:login-button size="large" scope="public_profile,email" returnscopes="true" onlogin="myapp.getLoginStatus();">Continue by Facebook</fb:login-button>
                         </div>
@@ -87,7 +91,11 @@
         console.log('running statusChangeCallback...');
         console.log(response);
 
+<<<<<<< Updated upstream
         if (response.status === 'connected') {
+=======
+        if (response.status === 'connected!') {
+>>>>>>> Stashed changes
           document.getElementById('status').innerHTML = 'connected!';
 
           FB.api('/me', function(response) {
@@ -98,20 +106,32 @@
         else {
           document.getElementById('status').innerHTML = 'Please log into this app.';
 
+<<<<<<< Updated upstream
           FB.login(function (response) {
+=======
+          FB.login(function(response) {
+>>>>>>> Stashed changes
             console.log(response);
           }, {
               scope: 'email',
               return_scopes: true
+<<<<<<< Updated upstream
             });
+=======
+          });
+>>>>>>> Stashed changes
         }
       }
   
       window.fbAsyncInit = function() {
         FB.init({
         appId            : '586954626932234',
+<<<<<<< Updated upstream
         // autoLogAppEvents : true,
         cookie : true,
+=======
+        autoLogAppEvents : true,
+>>>>>>> Stashed changes
         xfbml            : true,
         version          : 'v17.0'
         });
@@ -120,9 +140,15 @@
           statusChangeCallback(response);
         });
           
+<<<<<<< Updated upstream
         // FB.AppEvents.logPageView();   
           
       }
+=======
+        FB.AppEvents.logPageView();   
+          
+      };
+>>>>>>> Stashed changes
 
       document.getElementById("fb-login-button").addEventListener("click", function () {
         FB.login(function (response) {
