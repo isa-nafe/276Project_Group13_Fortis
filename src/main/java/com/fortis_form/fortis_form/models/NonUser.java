@@ -3,38 +3,40 @@ package com.fortis_form.fortis_form.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="nonusers")
+public class NonUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int uid;
+    private int nuid;
     
     private String name;
     private String last_name;
     private String address;
     private String phone;
-    private String email;
-    private String password;
 
-    public User() {
+    public NonUser() {
     }
 
-    public User(int uid, String name, String last_name, String address, String phone, String email, String password) {
-        this.uid = uid;
+    public NonUser(String name, String last_name, String address, String phone) {
         this.name = name;
         this.last_name = last_name;
         this.address = address;
         this.phone = phone;
-        this.email = email;
-        this.password = password;
+    }
+    public NonUser(int id, String name, String last_name, String address, String phone) {
+        this.nuid = id;
+        this.name = name;
+        this.last_name = last_name;
+        this.address = address;
+        this.phone = phone;
     }
 
-    public int getUid() {
-        return uid;
+    public int getNuid() {
+        return nuid;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setNuid(int nuid) {
+        this.nuid = nuid;
     }
 
     public String getName() {
@@ -68,21 +70,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    
 
 }

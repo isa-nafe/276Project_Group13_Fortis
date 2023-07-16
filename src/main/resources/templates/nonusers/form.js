@@ -16,7 +16,7 @@ async function enableEditMode(){
     cells[3].appendChild(phoneInput);
   
     cells[4].textContent = '';
-    cells[4].appendChild(addressInput);\
+    cells[4].appendChild(addressInput);
 
     const saveBtn = document.createElement('button');
     saveBtn.textContent = 'Save';
