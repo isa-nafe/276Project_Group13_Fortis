@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<<<<<<< HEAD
 </head>
 <body>
-=======
->>>>>>> 2945a4782e63ae5ddb43351ef5165af68201d28d
     <link rel="stylesheet" href="signup.css">
     <title>Sign in</title>
     <style>
@@ -57,15 +54,11 @@
                         <button type="submit"
                             class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Login</button>
                             <a href="../nonusers/open" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" role="button">Back</a>
-                        <button type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">
-                          <img scr="@{/imgs/google-logo.png}">Google Login
-                        </button>
+                            <button onclick="redirectToGoogle()" type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center" id="google-button">
+                              <img scr="@{/imgs/google-logo.png}">Google Login
+                            </button>
                         <button type="button" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" id="fb-login-button">
-<<<<<<< Updated upstream
                           <img scr="@{/imgs/facebook-logo.png}">Facebook Login  
-=======
-                          <img scr="@{/imgs/facebook-logo.png}">Facebook Login
->>>>>>> Stashed changes
                         </button>
                         <fb:login-button size="large" scope="public_profile,email" returnscopes="true" onlogin="myapp.getLoginStatus();">Continue by Facebook</fb:login-button>
                         </div>
@@ -91,11 +84,7 @@
         console.log('running statusChangeCallback...');
         console.log(response);
 
-<<<<<<< Updated upstream
         if (response.status === 'connected') {
-=======
-        if (response.status === 'connected!') {
->>>>>>> Stashed changes
           document.getElementById('status').innerHTML = 'connected!';
 
           FB.api('/me', function(response) {
@@ -106,32 +95,20 @@
         else {
           document.getElementById('status').innerHTML = 'Please log into this app.';
 
-<<<<<<< Updated upstream
           FB.login(function (response) {
-=======
-          FB.login(function(response) {
->>>>>>> Stashed changes
             console.log(response);
           }, {
               scope: 'email',
               return_scopes: true
-<<<<<<< Updated upstream
             });
-=======
-          });
->>>>>>> Stashed changes
         }
       }
   
       window.fbAsyncInit = function() {
         FB.init({
         appId            : '586954626932234',
-<<<<<<< Updated upstream
         // autoLogAppEvents : true,
         cookie : true,
-=======
-        autoLogAppEvents : true,
->>>>>>> Stashed changes
         xfbml            : true,
         version          : 'v17.0'
         });
@@ -140,15 +117,9 @@
           statusChangeCallback(response);
         });
           
-<<<<<<< Updated upstream
         // FB.AppEvents.logPageView();   
           
       }
-=======
-        FB.AppEvents.logPageView();   
-          
-      };
->>>>>>> Stashed changes
 
       document.getElementById("fb-login-button").addEventListener("click", function () {
         FB.login(function (response) {
@@ -172,6 +143,12 @@
          js.src = "https://connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
+
+
+      function redirectToGoogle() {
+        window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+      }
     </script>
+    
 </body>
 </html>
