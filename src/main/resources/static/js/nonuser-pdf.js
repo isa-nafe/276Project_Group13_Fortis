@@ -1,60 +1,91 @@
 
-
-// function print(){
-// var elementHTML = document.querySelector("#printContent");
-// docPDF.html(elementHTML, {
-//  callback: function(docPDF) {
-//   docPDF.save('emergency_form_input.pdf');
-//  },
-//  x: 15,
-//  y: 15,
-//  width: 170,
-//  windowWidth: 650
-// });
-// }
-
-
-
 window.jsPDF = window.jspdf.jsPDF;
 var docPDF = new jsPDF();
 
 function sendEmail() {
 
   // Retrieve form data
-  var formData = '';
+  var prompts = '';
+  var info = '';
   var formElements = document.getElementById('userInfo').elements;
   for (var i = 0; i < formElements.length; i++) {
     var element = formElements[i];
     if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-      formData += element.name + ': ' + element.value + '\n';
+      prompts += element.placeholder + ': ' + '\n';
+      info += element.value + '\n';
     }
   }
+  
 
   var docPDF = new jsPDF();
 
-  // Add a new page for the form content
-  docPDF.text('Form Data:', 10, 10);
-  docPDF.text(formData, 10, 20);
+  var fortisLogo = new Image();
+  fortisLogo.src = '/imgs/logo.svg.png';
+  docPDF.addImage(fortisLogo, 'PNG', 10, 10, 50, 10);
 
-  var additionalDetails = document.getElementById('additionalDetails').value;
-  var additionalDetails = document.getElementById('additionalDetails').value;
+  // Calculate the x-coordinate to center the text horizontally
+  var header1 = 'Emergency Form Data';
+  var textWidth = docPDF.getTextWidth(header1);
+  var pageWidth = docPDF.internal.pageSize.getWidth();
+  var x = (pageWidth - textWidth) / 2;
+  docPDF.text(header1, x, 40);
+  docPDF.text(prompts, 10, 50);
 
-  // Add the additional details on a new page
-  docPDF.addPage();
-  docPDF.text('Additional Details:', 10, 10);
-  docPDF.text(additionalDetails, 10, 20);
+  docPDF.setTextColor(0, 0, 255);
+  docPDF.text(info, 70, 50);
+  docPDF.setTextColor(0, 0, 0);
 
+
+
+
+  
+  
+  
   // Find the radio buttons and add their values and corresponding questions to the PDF
   var radioButtons = document.querySelectorAll('input[type="radio"]:checked');
   var radioValues = '';
+  var startY = 100;
   radioButtons.forEach(function(radioButton) {
     var question = radioButton.closest('.card').querySelector('.fs-4').textContent.trim();
     var label = radioButton.closest('.form-check').querySelector('label').textContent.trim();
+    
+    docPDF.text(question, 10, startY);
+    // Set fill color to blue
+    docPDF.setTextColor(0, 0, 255);
+    docPDF.text(label, 10, startY + 10);
+
+    // Reset fill color to black
+    docPDF.setTextColor(0, 0, 0);
+
+    startY += 20; // Increase the y-coordinate for the next text
+
     radioValues += question + '\n' + label + '\n\n';
   });
+  // Calculate the x-coordinate to center the text horizontally
+  var header2 = 'Radio Button Questions and Answers';
+  var textWidth = docPDF.getTextWidth(header2);
+  var pageWidth = docPDF.internal.pageSize.getWidth();
+  var x = (pageWidth - textWidth) / 2;
+  docPDF.text(header2, x, 90);
 
-  docPDF.text('Radio Button Questions and Values:', 10, 40);
-  docPDF.text(radioValues, 10, 50);
+  
+  
+  // Add the additional details on a new page
+  var additionalDetails = document.getElementById('additionalDetails').value;
+  var additionalDetails = document.getElementById('additionalDetails').value;
+  docPDF.addPage();
+  var header3 = 'Additional Details';
+  var textWidth = docPDF.getTextWidth(header3);
+  var pageWidth = docPDF.internal.pageSize.getWidth();
+  var x = (pageWidth - textWidth) / 2;
+  docPDF.text(header3, x, 10);
+  docPDF.setTextColor(0, 0, 255);
+  docPDF.text(additionalDetails, 10, 20);
+  docPDF.setTextColor(0, 0, 0);
+
+
+  
+  
 
 
   
