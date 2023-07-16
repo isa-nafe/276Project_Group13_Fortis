@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
 </head>
 <body>
     <link rel="stylesheet" href="signup.css">
@@ -55,11 +54,11 @@
                         <button type="submit"
                             class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Login</button>
                             <a href="../nonusers/open" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" role="button">Back</a>
-                        <button type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">
-                          <img scr="@{/imgs/google-logo.png}">Google Login
-                        </button>
+                            <button onclick="redirectToGoogle()" type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center" id="google-button">
+                              <img scr="@{/imgs/google-logo.png}">Google Login
+                            </button>
                         <button type="button" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" id="fb-login-button">
-                          <img scr="@{/imgs/facebook-logo.png}">Facebook Login
+                          <img scr="@{/imgs/facebook-logo.png}">Facebook Login  
                         </button>
                         </div>
                     </div>
@@ -83,6 +82,7 @@
       function statusChangeCallback(response) {
         console.log('running statusChangeCallback...');
         console.log(response);
+
         if (response.status === 'connected') {
           document.getElementById('status').innerHTML = 'connected!';
 
@@ -94,20 +94,20 @@
         else {
           document.getElementById('status').innerHTML = 'Please log into this app.';
 
-          FB.login(function(response) {
+          FB.login(function (response) {
             console.log(response);
           }, {
               scope: 'email',
               return_scopes: true
-          });
+            });
         }
       }
   
       window.fbAsyncInit = function() {
         FB.init({
         appId            : '586954626932234',
+        // autoLogAppEvents : true,
         cookie : true,
-        autoLogAppEvents : true,
         xfbml            : true,
         version          : 'v17.0'
         });
@@ -116,7 +116,7 @@
           statusChangeCallback(response);
         });
           
-        FB.AppEvents.logPageView();   
+        // FB.AppEvents.logPageView();   
           
       }
 
@@ -142,6 +142,12 @@
          js.src = "https://connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
+
+
+      function redirectToGoogle() {
+        window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+      }
     </script>
+    
 </body>
 </html>
