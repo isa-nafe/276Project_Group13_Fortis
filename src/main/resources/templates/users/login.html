@@ -100,15 +100,14 @@
           }, {
               scope: 'email',
               return_scopes: true
-            });
+          });
         }
       }
   
       window.fbAsyncInit = function() {
         FB.init({
         appId            : '586954626932234',
-        // autoLogAppEvents : true,
-        cookie : true,
+        autoLogAppEvents : true,
         xfbml            : true,
         version          : 'v17.0'
         });
@@ -117,9 +116,9 @@
           statusChangeCallback(response);
         });
           
-        // FB.AppEvents.logPageView();   
+        FB.AppEvents.logPageView();   
           
-      }
+      };
 
       document.getElementById("fb-login-button").addEventListener("click", function () {
         FB.login(function (response) {
