@@ -17,7 +17,13 @@ function sendEmail(topic) {
   }
   
 
-  var docPDF = new jsPDF();
+  // var docPDF = new jsPDF();
+  var docPDF = new jsPDF({
+    compress: true, // Enable PDF compression
+    orientation: 'p', // Portrait orientation
+    unit: 'mm', // Use millimeters as the unit of measurement
+    format: 'a4', // Use A4 page format
+  });
 
   var fortisLogo = new Image();
   fortisLogo.src = '/imgs/logo.svg.png';
@@ -83,18 +89,46 @@ function sendEmail(topic) {
   docPDF.text(additionalDetails, 10, 20);
   docPDF.setTextColor(0, 0, 0);
 
+   // Save the document
+   docPDF.save('emergency_form_input.pdf');
 
-  
-  
+// // email function (uncomment to work)
+//   Email.send({
+//     Host: 'smtp.elasticemail.com',
+//     Username: 'emergency-form@cmpt276.com',
+//     Password: '845BC7CA4184E311B4A8511564D6C1A1B4A7',
+//     To: 'yha231@sfu.ca',
+//     //ivanpostolov03@mail.ru
+//     From: 'wertysytre@gmail.com',
+//     Port: '2525',
+//     Subject: topic,
+//     Body: 'Hi',
+//     Attachments: [
+//       {
+//         name: 'emergency_form_input.pdf',
+//         data: docPDF.output('datauristring')
+//       }
+//     ]
+//   }).then(
+//     message => {
+//       alert('Mail sent successfully');
+//       console.log(message);
+//       $('#userInfo').submit();
+//     }
+//   );
 
+// Save the document
+var options = {
+  objcompressor: true, // Enable object compression
+  compress: true, // Enable stream compression
+};
+var pdfData = docPDF.output('arraybuffer', options);
 
-  
-
-  // Save the document
-  docPDF.save('emergency_form_input.pdf');
+// Convert the compressed data to a base64 string
+var base64PDFData = btoa(String.fromCharCode.apply(null, new Uint8Array(pdfData)));
 
 // email function (uncomment to work)
-  Email.send({
+Email.send({
     Host: 'smtp.elasticemail.com',
     Username: 'emergency-form@cmpt276.com',
     Password: '845BC7CA4184E311B4A8511564D6C1A1B4A7',
@@ -102,26 +136,20 @@ function sendEmail(topic) {
     From: 'wertysytre@gmail.com',
     Port: '2525',
     Subject: topic,
-    Body: 'Hi',
-    Attachments: [
-      {
-        name: 'emergency_form_input.pdf',
-        data: docPDF.output('datauristring')
-      }
-    ]
-  }).then(
-    message => {
-      //alert('Mail sent successfully');
-      dbText = document.getElementById("modalBody").innerHTML;
-      $('#userInfo').submit();
-      $('#printContent').hide();
-      // $('#confirmationMessage').show();
-      $('#instructionContainer').text(dbText);
-      
-      console.log(message);
-
-    }
-  );
+    Body: 'Fortis Emergency Form Automail',
+  Attachments: [
+    {
+      name: 'emergency_form_input.pdf',
+      data: 'data:application/pdf;base64,' + base64PDFData,
+    },
+  ],
+}).then(
+  message => {
+    alert('Mail sent successfully');
+    console.log(message);
+    $('#userInfo').submit();
+  }
+);
 }
 
 
