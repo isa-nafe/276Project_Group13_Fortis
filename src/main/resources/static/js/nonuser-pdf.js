@@ -147,27 +147,27 @@ function sendEmail(topic) {
     // Convert the compressed data to a base64 string
     var base64PDFData = btoa(String.fromCharCode.apply(null, new Uint8Array(pdfData)));
 
-    // Email.send({
-    //     Host: 'smtp.elasticemail.com',
-    //     Username: 'emergency-form@cmpt276.com',
-    //     Password: '845BC7CA4184E311B4A8511564D6C1A1B4A7',
-    //     To: 'ivanpostolov03@mail.ru',
-    //     From: 'wertysytre@gmail.com',
-    //     Port: '2525',
-    //     Subject: topic,
-    //     Body: 'Fortis Emergency Form Automail',
-    //   Attachments: [
-    //     {
-    //       name: 'emergency_form_input.pdf',
-    //       data: 'data:application/pdf;base64,' + base64PDFData,
-    //     },
-    //   ],
-    // }).then(
-    //   message => {
-    //     console.log(message);
-    //     $('#userInfo').submit();
-    //     $('#printContent').hide();
-    //   }
-    // );
+    Email.send({
+        Host: 'smtp.elasticemail.com',
+        Username: 'emergency-form@cmpt276.com',
+        Password: '845BC7CA4184E311B4A8511564D6C1A1B4A7',
+        To: 'yha231@sfu.ca',
+        From: 'wertysytre@gmail.com',
+        Port: '2525',
+        Subject: topic,
+        Body: 'Fortis Emergency Form Automail',
+      Attachments: [
+        {
+          name: 'emergency_form_input.pdf',
+          data: 'data:application/pdf;base64,' + base64PDFData,
+        },
+      ],
+    }).then(
+      message => {
+        console.log(message);
+        $('#userInfo').submit();
+        $('#printContent').hide();
+      }
+    );
 
 }
