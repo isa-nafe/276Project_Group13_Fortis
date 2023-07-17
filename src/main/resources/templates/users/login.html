@@ -1,12 +1,37 @@
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<<<<<<< HEAD
+</head>
+<body>
+=======
+>>>>>>> 2945a4782e63ae5ddb43351ef5165af68201d28d
     <link rel="stylesheet" href="signup.css">
     <title>Sign in</title>
+    <style>
+      .google-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 10px 20px;
+        border: none;
+        background-color: #4285F4;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .google-button img {
+        width: 20px;
+        height: 20px;
+      }
+      #status { border: solid 1px #ccc; font-family: 'Courier New'; font-size: .75rem; padding: .8rem; }
+    </style>
 </head>
 <body>
     <div class="mask d-flex align-items-center h-100">
@@ -15,23 +40,36 @@
             <div class="col-12 col-md-9 col-lg-7 col-xl-6">
               <div class="card" style="border-radius: 15px;">
                 <div class="card-body p-5">
+                    <div class="text-center mb-5">
+                    <img th:src="@{/imgs/logo.svg.png}" width="30%" height="25%" alt="Logo" class="logo-img">
+                  </div>
                   <h2 class="text-uppercase text-center mb-5">Log in into account</h2>
-                  <form>
+                  <form th:action="@{/users/login}" method="post">
                     <div class="form-outline mb-4">
-                      <input type="text" id="signup_FirstName" placeholder="Email" class="form-control form-control-lg" />
+                      <input type="text" name="email" id="signup_FirstName" placeholder="Email" class="form-control form-control-lg"  />
                     </div>
                     <div class="form-outline mb-4">
-                        <input type="text" id="signup_LastName" placeholder="Password" class="form-control form-control-lg" />
+                        <input type="text" name="password" id="signup_LastName" placeholder="Password" class="form-control form-control-lg"  />
                       </div>
                       
                     <div>
                         <div class="d-flex ">
-                        <button type="button"
-                            class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Register</button>
+                        <button type="submit"
+                            class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Login</button>
                             <a href="../nonusers/open" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" role="button">Back</a>
+                        <button type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">
+                          <img scr="@{/imgs/google-logo.png}">Google Login
+                        </button>
+                        <button type="button" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" id="fb-login-button">
+<<<<<<< Updated upstream
+                          <img scr="@{/imgs/facebook-logo.png}">Facebook Login  
+=======
+                          <img scr="@{/imgs/facebook-logo.png}">Facebook Login
+>>>>>>> Stashed changes
+                        </button>
+                        <fb:login-button size="large" scope="public_profile,email" returnscopes="true" onlogin="myapp.getLoginStatus();">Continue by Facebook</fb:login-button>
                         </div>
                     </div>
-                    
                     </div>
                   </form>
                 </div>
@@ -40,11 +78,100 @@
           </div>
         </div>
       </div>
+      <h3 style="margin-bottom: 5px;">Status:</h3>
+      <div id="status"></div>
 
-
+      
 
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script>
+      function statusChangeCallback(response) {
+        console.log('running statusChangeCallback...');
+        console.log(response);
+
+<<<<<<< Updated upstream
+        if (response.status === 'connected') {
+=======
+        if (response.status === 'connected!') {
+>>>>>>> Stashed changes
+          document.getElementById('status').innerHTML = 'connected!';
+
+          FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+          });
+        }
+        else {
+          document.getElementById('status').innerHTML = 'Please log into this app.';
+
+<<<<<<< Updated upstream
+          FB.login(function (response) {
+=======
+          FB.login(function(response) {
+>>>>>>> Stashed changes
+            console.log(response);
+          }, {
+              scope: 'email',
+              return_scopes: true
+<<<<<<< Updated upstream
+            });
+=======
+          });
+>>>>>>> Stashed changes
+        }
+      }
+  
+      window.fbAsyncInit = function() {
+        FB.init({
+        appId            : '586954626932234',
+<<<<<<< Updated upstream
+        // autoLogAppEvents : true,
+        cookie : true,
+=======
+        autoLogAppEvents : true,
+>>>>>>> Stashed changes
+        xfbml            : true,
+        version          : 'v17.0'
+        });
+  
+        FB.getLoginStatus(function (response) {
+          statusChangeCallback(response);
+        });
+          
+<<<<<<< Updated upstream
+        // FB.AppEvents.logPageView();   
+          
+      }
+=======
+        FB.AppEvents.logPageView();   
+          
+      };
+>>>>>>> Stashed changes
+
+      document.getElementById("fb-login-button").addEventListener("click", function () {
+        FB.login(function (response) {
+          console.log("fb login complete.");
+          console.log(response);
+
+          FB.api('/me/likes', 'get', { fields: 'id,name,about,created_time,category' }, function (response) {
+            console.log(response);
+          });
+        },
+          {
+            scope: 'email,user_likes',
+            return_scopes: true
+          });
+      });
+    
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
 </body>
 </html>

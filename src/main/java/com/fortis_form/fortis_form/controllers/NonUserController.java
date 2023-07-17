@@ -51,14 +51,39 @@ public class NonUserController {
                 // Redirect or display an error message as needed
             }
         }
-            
-
-        // List<NonUser> nonusers = nonUserRepo.findAll();
-        // Collections.sort(students, Comparator.comparing(Student::getName));
-        // model.addAttribute("nu", nonusers);
         return "nonusers/form";
     }
 
+    @GetMapping("/nonusers/reset")
+    public String Reset(@RequestParam Map<String, String> newnonuser, RedirectAttributes redirectAttributes){
+        System.out.println("resetting nonusers");
+        String newPhone = newnonuser.get("phone");
+        redirectAttributes.addAttribute("phone", newPhone);
+        return "nonusers/form";
+    }
+
+    @PostMapping("/nonusers/edit")
+    public String editStudent(@RequestParam Map<String, String> newnonuser, Model model, RedirectAttributes redirectAttributes) {
+        // Student student = studRepo.findById(id).get();
+        // int sid = Integer.parseInt(newnonuser.get("nuid"));
+        System.out.println("edit nonuser: ");
+        // int id = Integer.parseInt(sid);
+        String newPhone = newnonuser.get("phone");
+        NonUser non = nonUserRepo.findByPhone(newPhone);
+        String newName = newnonuser.get("name");
+        String newLast = newnonuser.get("last_name");
+        String newAddress = newnonuser.get("address");
+        if (non != null) {
+            non.setName(newName);
+            non.setLast_name(newLast);
+            non.setAddress(newAddress);
+            non.setPhone(newPhone);
+            // Update other attributes if needed
+            nonUserRepo.save(non);
+        }
+        redirectAttributes.addAttribute("phone", newPhone);
+        return "redirect:/nonusers/form";
+    }
 
     @PostMapping("/nonusers/add")
     public String addNonUser(@RequestParam Map<String, String> newnonuser,HttpServletResponse response, RedirectAttributes redirectAttributes){
