@@ -70,7 +70,6 @@ public class UserController {
                 model.addAttribute("user", user);
             } else {
                 return "redirect:/users/form";
-       
                 // Handle the case when the user is not found
                 // Redirect or display an error message as needed
             }
