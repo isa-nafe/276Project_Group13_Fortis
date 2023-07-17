@@ -15,12 +15,11 @@ public class User {
     private String phone;
     private String email;
     private String password;
-    private boolean enabled;
 
     public User() {
     }
 
-    public User(int uid, String name, String last_name, String address, String phone, String email, String password, boolean enabled) {
+    public User(int uid, String name, String last_name, String address, String phone, String email, String password) {
         this.uid = uid;
         this.name = name;
         this.last_name = last_name;
@@ -28,7 +27,6 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.password = password;
-        this.enabled = enabled;
     }
 
     public int getUid() {
@@ -85,25 +83,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Enumerated(EnumType.STRING)
-    private Provider provider;
- 
-    public Provider getProvider() {
-        return provider;
-    }
- 
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
 }
