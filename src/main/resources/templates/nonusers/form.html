@@ -15,6 +15,7 @@
       <script th:src="@{/js/bootstrap.min.js}" defer></script>
       <script type="text/javascript" th:src="@{/js/nonuser-pdf.js}" defer></script>
       <script type="text/javascript" th:src="@{/js/nonuser-questions.js}" defer></script>
+      <script type="text/javascript" th:src="@{/js/reset.js}" defer></script>
       <title>Emergency Form</title>
    </head>
    <body>
@@ -334,6 +335,7 @@
                          </div>
                         <div class="modal-footer">
                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                           <button id="resetButton" type="submit" class="btn btn-secondary"  onclick="Reset()">Reset form</button>
                            <button id="externalButton" type="button" class="btn btn-primary" onclick=" checkAndAppend() ">Submit</button>
                         </div>
                      </div>

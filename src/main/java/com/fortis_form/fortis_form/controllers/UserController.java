@@ -51,12 +51,17 @@ public class UserController {
         System.out.println(password);
         // Retrieve the user from the database using the email
         User storedUser = userRepo.findByEmail(email);
-        redirectAttributes.addAttribute("phone", storedUser.getPhone());
-            if (storedUser != null &&  (storedUser.getPassword()).equals(password)) {
+            if (storedUser != null){
+                redirectAttributes.addAttribute("phone", storedUser.getPhone());
+                if (storedUser.getPassword().equals(password)) {
                 // Compare the plain text password with the stored password
                 return "redirect:/users/form";
             }
-        return "redirect:users/login?error";
+        }
+        
+        redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+        System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+        return "redirect:/users/login";
         
     }
 
@@ -81,6 +86,14 @@ public class UserController {
         // model.addAttribute("nu", nonusers);
         return "users/form";
     }
+
+    // @GetMapping("/users/reset")
+    // public String Reset(@RequestParam Map<String, String> newnonuser, RedirectAttributes redirectAttributes){
+    //     System.out.println("resetting users");
+    //     String newPhone = newnonuser.get("phone");
+    //     redirectAttributes.addAttribute("phone", newPhone);
+    //     return "users/form";
+    // }
 
 }
 
