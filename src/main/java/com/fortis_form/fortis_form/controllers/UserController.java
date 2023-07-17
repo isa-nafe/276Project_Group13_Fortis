@@ -51,12 +51,17 @@ public class UserController {
         System.out.println(password);
         // Retrieve the user from the database using the email
         User storedUser = userRepo.findByEmail(email);
-        redirectAttributes.addAttribute("phone", storedUser.getPhone());
-            if (storedUser != null &&  (storedUser.getPassword()).equals(password)) {
+            if (storedUser != null){
+                redirectAttributes.addAttribute("phone", storedUser.getPhone());
+                if (storedUser.getPassword().equals(password)) {
                 // Compare the plain text password with the stored password
                 return "redirect:/users/form";
             }
-        return "redirect:users/login?error";
+        }
+        
+        redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+        System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+        return "redirect:/users/login";
         
     }
 

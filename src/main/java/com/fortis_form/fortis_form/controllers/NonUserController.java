@@ -89,8 +89,8 @@ public class NonUserController {
         NonUser existingNonUser = nonUserRepo.findByPhone(newPhone);
         if (existingNonUser != null) {
             // Display an alert or error message indicating the duplicate phone number
-            redirectAttributes.addFlashAttribute("errorMessage", "Phone number already exists in the system");
-            return "redirect:/nonusers/login";
+            redirectAttributes.addFlashAttribute("errorMessage", "Phone number already exists in the system, please login");
+            return "redirect:/users/login";
         }
 
         nonUserRepo.save(new NonUser(newName, newLastName, newAddress, newPhone));
