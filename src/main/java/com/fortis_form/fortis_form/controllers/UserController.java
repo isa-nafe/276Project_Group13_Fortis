@@ -82,6 +82,14 @@ public class UserController {
         return "users/form";
     }
 
+    // @GetMapping("/users/reset")
+    // public String Reset(@RequestParam Map<String, String> newnonuser, RedirectAttributes redirectAttributes){
+    //     System.out.println("resetting users");
+    //     String newPhone = newnonuser.get("phone");
+    //     redirectAttributes.addAttribute("phone", newPhone);
+    //     return "users/form";
+    // }
+
 }
 
 

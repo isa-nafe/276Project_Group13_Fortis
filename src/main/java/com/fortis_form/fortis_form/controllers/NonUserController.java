@@ -54,13 +54,7 @@ public class NonUserController {
         return "nonusers/form";
     }
 
-    @GetMapping("/nonusers/reset")
-    public String Reset(@RequestParam Map<String, String> newnonuser, RedirectAttributes redirectAttributes){
-        System.out.println("resetting nonusers");
-        String newPhone = newnonuser.get("phone");
-        redirectAttributes.addAttribute("phone", newPhone);
-        return "nonusers/form";
-    }
+
 
     @PostMapping("/nonusers/edit")
     public String editStudent(@RequestParam Map<String, String> newnonuser, Model model, RedirectAttributes redirectAttributes) {

@@ -15,7 +15,7 @@
       <script th:src="@{/js/bootstrap.min.js}" defer></script>
       <script type="text/javascript" th:src="@{/js/user-pdf.js}" defer></script>
       <script type="text/javascript" th:src="@{/js/nonuser-questions.js}" defer></script>
-      <!-- <script type="text/javascript" th:src="@{/js/nonuser-questions.js}" defer></script> -->
+      <script type="text/javascript" th:src="@{/js/reset.js}" defer></script>
       <title>Emergency Form</title>
    </head>
    <body>
@@ -30,7 +30,7 @@
       </div>
       <div class="mask d-flex align-items-center h-100 gradient-custom-3">
          <div class="container h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100 mx-auto p-5">
                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                   <div class="card" style="border-radius: 15px;" id="printContent">
                      <div class="card-body p-5">
@@ -38,7 +38,7 @@
                            <img th:src="@{/imgs/logo.svg.png}" width="30%" height="25%" alt="Logo" class="logo-img">
                         </div>
                         <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
-                        <form th:object="${user}" id="userInfo">
+                        <form th:object="${user}"  id="userInfo">
                            <div th:if="${errorMessage}">
                               <p th:text="${errorMessage}"></p>
                            </div>
@@ -60,7 +60,6 @@
                         </form>
                      </div>
                      
-
 
 
 
@@ -317,7 +316,7 @@
                      </div>
                   </div>
 
-
+                  <!-- <input type="text" id="email_subject" name="email_subject" placeholder="Enter email subject"> -->
 
 
                   <!-- Modal -->
@@ -325,7 +324,7 @@
                      <div class="modal-dialog" id="advise_modal">
                      <div class="modal-content">
                         <div class="modal-header">
-                           <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                           <h1 class="modal-title fs-5" id="exampleModalLabel">Please follow the instructions and submit the form</h1>
                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" id="modalBody">
@@ -336,7 +335,8 @@
                          </div>
                         <div class="modal-footer">
                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                           <button id="externalButton" type="button" class="btn btn-primary" onclick="sendEmail();  ">Submit</button>
+                           <button id="resetButton" type="submit" class="btn btn-danger"  onclick="resetUser()">Reset form</button>
+                           <button id="externalButton" type="button" class="btn btn-primary" onclick=" checkAndAppend() ">Submit</button>
                         </div>
                      </div>
                      </div>
