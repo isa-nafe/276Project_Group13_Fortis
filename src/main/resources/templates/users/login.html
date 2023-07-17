@@ -54,9 +54,9 @@
                         <button type="submit"
                             class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">Login</button>
                             <a href="../nonusers/open" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" role="button">Back</a>
-                        <button type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center">
-                          <img scr="@{/imgs/google-logo.png}">Google Login
-                        </button>
+                            <button onclick="redirectToGoogle()" type="button" class="btn btn-success btn-block btn-lg gradient-custom text-body justify-content-center" id="google-button">
+                              <img scr="@{/imgs/google-logo.png}">Google Login
+                            </button>
                         <button type="button" class="btn btn-primary btn-block btn-lg gradient-custom text-body justify-content-left" id="fb-login-button">
                           <img scr="@{/imgs/facebook-logo.png}">Facebook Login  
                         </button>
@@ -143,6 +143,12 @@
          js.src = "https://connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
+
+
+      function redirectToGoogle() {
+        window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+      }
     </script>
+    
 </body>
 </html>
