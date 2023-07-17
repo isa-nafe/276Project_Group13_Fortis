@@ -51,11 +51,14 @@ public class NonUserController {
                 // Redirect or display an error message as needed
             }
         }
-            
+        return "nonusers/form";
+    }
 
-        // List<NonUser> nonusers = nonUserRepo.findAll();
-        // Collections.sort(students, Comparator.comparing(Student::getName));
-        // model.addAttribute("nu", nonusers);
+    @GetMapping("/nonusers/reset")
+    public String Reset(@RequestParam Map<String, String> newnonuser, RedirectAttributes redirectAttributes){
+        System.out.println("resetting nonusers");
+        String newPhone = newnonuser.get("phone");
+        redirectAttributes.addAttribute("phone", newPhone);
         return "nonusers/form";
     }
 

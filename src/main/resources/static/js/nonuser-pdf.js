@@ -111,9 +111,15 @@ function sendEmail(topic) {
     ]
   }).then(
     message => {
-      alert('Mail sent successfully');
-      console.log(message);
+      //alert('Mail sent successfully');
+      dbText = document.getElementById("modalBody").innerHTML;
       $('#userInfo').submit();
+      $('#printContent').hide();
+      // $('#confirmationMessage').show();
+      $('#instructionContainer').text(dbText);
+      
+      console.log(message);
+
     }
   );
 }
