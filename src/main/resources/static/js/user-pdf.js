@@ -167,6 +167,7 @@ function sendEmail(topic) {
     }).then(
       message => {
         console.log(message);
+        $('#userInfo').submit();
         $('#printContent').hide();
       }
     );
