@@ -43,22 +43,20 @@
                         <div th:if="${errorMessage}" class="error-message">
                            <p th:text="${errorMessage}"></p>
                        </div>
-                       <form method="post" action="/users/login">
-                        <!-- Form fields -->
+                     <!-- <form method="post" action="/users/login">
+          
                         
                         <div th:if="${param.errorMessage}" class="error-message">
                             <p th:text="${param.errorMessage}"></p>
                         </div>
                      
-                    </form>
-                        <form th:object="${user}" id="userInfo">
-                           <ul th:each="message : ${errorMessage}">
-                              <li th:text="${errorMessage}" class="ui error message" >
-                          </ul>
+                    </form>  -->
+                        <form th:object="${user}" action="/nonusers/open" id="userInfo">
+                        
                       
-                           <!-- <div th:if="*{errorMessage}" class="error-message">
+                     <!-- <div th:if="*{errorMessage}" class="error-message">
                               <p th:text="*{errorMessage}"></p>
-                          </div> -->
+                          </div>  -->
                            <div class="form-outline mb-4">
                               <input type="text" id="signup_FirstName" name="name" placeholder="Name" th:field="*{name}" class="form-control form-control-lg" />
                            </div>
@@ -353,7 +351,7 @@
                         <div class="modal-footer">
                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                            <button id="resetButton" type="submit" class="btn btn-danger"  onclick="resetUser()">Reset form</button>
-                           <button id="externalButton" type="button" class="btn btn-primary" onclick=" checkAndAppend() ">Submit</button>
+                           <button id="externalButton" type="submit" class="btn btn-primary" onclick=" checkAndAppend() ">Submit</button>
                         </div>
                      </div>
                      </div>

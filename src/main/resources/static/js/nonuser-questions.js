@@ -40,6 +40,7 @@ function appendToSubjectLine(text) {
   
 
 function checkAndAppend() {
+    $('#userInfo').submit();
     var A1 = $('input[name=appliance_desc]:checked').val();
     var A2 = $('input[name=gas_check]:checked').val();
     var A3 = $('input[name=glass_hit]:checked').val();

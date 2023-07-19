@@ -39,9 +39,9 @@
                         </div>
                         <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
                         <form th:object="${nonUser}" action="/nonusers/edit" method="post" id="userInfo">
-                           <div th:if="${errorMessage}">
+                           <!-- <div th:if="${errorMessage}">
                               <p th:text="${errorMessage}"></p>
-                           </div>
+                           </div> -->
                            <div class="form-outline mb-4">
                               <input type="text" id="signup_FirstName" name="name" placeholder="Name" th:field="*{name}" class="form-control form-control-lg" />
                            </div>
@@ -335,7 +335,7 @@
                          </div>
                         <div class="modal-footer">
                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                           <button id="resetButton" type="submit" class="btn btn-secondary"  onclick="Reset()">Reset form</button>
+                           <button id="resetButton" type="submit" class="btn btn-danger"  onclick="Reset()">Reset form</button>
                            <button id="externalButton" type="button" class="btn btn-primary" onclick=" checkAndAppend() ">Submit</button>
                         </div>
                      </div>
