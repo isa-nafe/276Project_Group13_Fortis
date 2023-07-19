@@ -76,7 +76,7 @@ public class NonUserController {
             nonUserRepo.save(non);
         }
         redirectAttributes.addAttribute("phone", newPhone);
-        return "redirect:/nonusers/form";
+        return "redirect:/nonusers/open";
     }
 
     @PostMapping("/nonusers/add")

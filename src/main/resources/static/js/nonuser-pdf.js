@@ -54,6 +54,7 @@ function sendEmail(topic) {
 
         // Create URL for the Blob
         var pdfUrl = URL.createObjectURL(pdfBlob);
+        var close = window.close();
 
         // Open the PDF in a new tab
         var newTab = window.open();
@@ -61,6 +62,7 @@ function sendEmail(topic) {
 
         // Save the PDF
         modalPDF.save('instructions_to_follow.pdf');
+        
     };
 
 
