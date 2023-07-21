@@ -21,7 +21,7 @@ public class SecurityConfig {
                     auth.anyRequest().authenticated();
                 })
                 .oauth2Login(withDefaults())
-                .formLogin(withDefaults())
+                .formLogin(login -> login.loginPage("/login").permitAll())
                 .build();
     }
 
