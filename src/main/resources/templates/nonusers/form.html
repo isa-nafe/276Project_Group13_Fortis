@@ -316,35 +316,79 @@
                      </div>
                   </div>
 
-                  <!-- <input type="text" id="email_subject" name="email_subject" placeholder="Enter email subject"> -->
 
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                     <div class="modal-dialog" id="advise_modal">
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <h1 class="modal-title fs-5" id="exampleModalLabel">Please follow the instructions and submit the form</h1>
-                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="modalBody">
-                        </div>
-                        <div class="p-3 m-0 border-0 bd-example m-0 border-0">
-                           Provide additional details
-                           <textarea class="form-control" aria-label="With textarea" id="additionalDetails"></textarea>
-                         </div>
-                        <div class="modal-footer">
-                           <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                           <button id="resetButton" type="submit" class="btn btn-danger"  onclick="Reset()">Reset form</button>
-                           <button id="externalButton" type="button" class="btn btn-primary" onclick=" checkAndAppend() ">Submit</button>
-                        </div>
-                     </div>
-                     </div>
+      <!-- final modal -->
+      <div class="modal fade" id="exampleModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+         <div class="modal-dialog modal-dialog-centered">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Personal information</h1>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+               <form id="modalForm">
+                  <div class="form-outline mb-4">
+                    <input type="text" id="modal_FirstName" name="name" placeholder="First Name" class="form-control form-control-lg" required/>
                   </div>
-               </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" id="modal_LastName" name="last_name" placeholder="Last Name" class="form-control form-control-lg" required/>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" id="modal_Phone" name="phone" placeholder="Phone number" class="form-control form-control-lg" required/>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" id="modal_Address" name="address" placeholder="Address" class="form-control form-control-lg" required/>
+                  </div>
+                </form>
+             </div>
+             <div class="modal-footer">
+               <button class="btn btn-primary" data-bs-target="#exampleModal_2" data-bs-toggle="modal" onclick="copyDataBack()">Everything is correct</button>
+             </div>
+           </div>
+         </div>
+       </div>
+       <script>
+         document.getElementById('exampleModal').addEventListener('show.bs.modal', function (event) {
+           var button = event.relatedTarget
+           document.getElementById('modal_FirstName').value = document.getElementById('signup_FirstName').value;
+           document.getElementById('modal_LastName').value = document.getElementById('signup_LastName').value;
+           document.getElementById('modal_Phone').value = document.getElementById('signup_Phone').value;
+           document.getElementById('modal_Address').value = document.getElementById('signup_Address').value;
+         })
+
+         function copyDataBack() {
+            document.getElementById('signup_FirstName').value = document.getElementById('modal_FirstName').value;
+            document.getElementById('signup_LastName').value = document.getElementById('modal_LastName').value;
+            document.getElementById('signup_Phone').value = document.getElementById('modal_Phone').value;
+            document.getElementById('signup_Address').value = document.getElementById('modal_Address').value;
+         }
+         </script>
+       <!-- Modal -->
+       <div class="modal fade" id="exampleModal_2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" id="advise_modal">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h1 class="modal-title fs-5" id="exampleModalLabel">Please follow the instructions and submit the form</h1>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="p-3 m-0 border-0 bd-example m-0 border-0">
+               Provide additional details
+               <textarea class="form-control" aria-label="With textarea" id="additionalDetails"></textarea>
+             </div>
+            <div class="modal-footer">
+               <button id="resetButton" type="submit" class="btn btn-danger"  onclick="Reset()">Reset form</button>
+               <button id="externalButton" type="button" class="btn btn-primary" onclick=" checkAndAppend() ">Submit</button>
             </div>
          </div>
+         </div>
       </div>
+   </div>
+</div>
+</div>
+</div>
+      
 
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
