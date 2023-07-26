@@ -28,7 +28,7 @@
         gap: 5px;
         padding: 10px 20px;
         border: none;
-        background-color: #4285F4;
+        background-color: #6a707b; /* #4285F4 */
         color: #fff;
         font-size: 16px;
         font-weight: bold;
@@ -92,6 +92,15 @@
 
 
 <div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="filled_blue"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
+
+<div class="fb_id_signin"
      data-type="standard"
      data-shape="rectangular"
      data-theme="filled_blue"
@@ -182,5 +191,36 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script>
+      function statusChangeCallback(response) {
+        console.log('running statusChangeCallback...');
+        console.log(response);
+      }
+
+      window.fhAsyncinit = function () {
+      // FB JavaScript SDK configuration and setup
+      FB.init({
+        appId: '586954626932234', // FB App ID
+        cookie: true, //enable cookies to allow the server to access the session
+        xfbml: true, //parse social plugins on this page
+        version: 'v17.0' //use graph api version 17.0
+      });
+      //immediately go ahead and check whether the user already logged in
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+
+
+
+    //Load the JavaScript SDK asynchronously
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_CA/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
 </body>
 </html>
