@@ -1,5 +1,7 @@
 package com.fortis_form.fortis_form.models;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,8 +18,22 @@ public class User {
     private String email;
     private String password;
 
-    public User() {
-    }
+    
+     // Add the @OneToMany annotation to indicate the one-to-many relationship
+     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+     private List<Form> forms;
+ 
+     public User() {
+     }
+ 
+     // Getter and Setter for forms list
+     public List<Form> getForms() {
+         return forms;
+     }
+ 
+     public void setForms(List<Form> forms) {
+         this.forms = forms;
+     }
 
     public User(int uid, String name, String last_name, String address, String phone, String email, String password) {
         this.uid = uid;

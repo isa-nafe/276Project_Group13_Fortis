@@ -5,18 +5,26 @@ import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="forms")
+@Table(name = "forms")
 public class Form {
-    // Auto-incremented ID using AtomicInteger
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate date;
-    private int userId; // User ID of the user who submitted the form
 
-    public Form(int userId) {
+    private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "uid") // Correctly map to the primary key of the User entity
+    private User user; // Change the data type to User to represent the relationship
+
+    public Form() {
         this.date = LocalDate.now();
-        this.userId = userId;
+    }
+
+    public Form(User user) {
+        this();
+        this.user = user;
     }
 
     public int getId() {
@@ -26,9 +34,17 @@ public class Form {
     public LocalDate getDate() {
         return date;
     }
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-    public int getUserId() {
-        return userId;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -36,9 +52,7 @@ public class Form {
         return "Form{" +
                 "id=" + id +
                 ", date=" + date +
-                ", userId=" + userId +
+                ", user=" + user +
                 '}';
     }
-
-
-} 
+}

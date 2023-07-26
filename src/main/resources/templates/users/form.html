@@ -38,7 +38,12 @@
                            <img th:src="@{/imgs/logo.svg.png}" width="30%" height="25%" alt="Logo" class="logo-img">
                         </div>
                         <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
-                        <form th:object="${user}" action="/nonusers/open" id="userInfo">
+                        <!-- <form th:object="${user}" action="/submit-form" id="formInfo">
+                           
+                            <button type="submit" id="submitButton">Submit Form</button> 
+                        </form> -->
+                        <form th:object="${user}" action="/submit-form" id="userInfo">
+                           <input type="hidden" name="userId" th:value="${user.uid}" method="get"/>
                            <!-- <div th:if="${errorMessage}">
                               <p th:text="${errorMessage}"></p>
                            </div> -->
