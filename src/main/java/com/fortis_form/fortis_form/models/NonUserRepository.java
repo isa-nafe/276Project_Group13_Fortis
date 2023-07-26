@@ -6,4 +6,6 @@ public interface NonUserRepository extends JpaRepository <NonUser, Integer> {
 
     NonUser findByPhone(String phone);
 
+    NonUser findByNuid(int nuid);
+
 }

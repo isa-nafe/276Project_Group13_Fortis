@@ -37,11 +37,13 @@
                         <div class="text-center mb-5">
                            <img th:src="@{/imgs/logo.svg.png}" width="30%" height="25%" alt="Logo" class="logo-img">
                         </div>
+                        
                         <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
                         <form th:object="${nonUser}" action="/nonusers/edit" method="post" id="userInfo">
-                           <!-- <div th:if="${errorMessage}">
+                           <input type="hidden" name="userId" th:value="${nonUser.nuid}" method="get" />
+                           <div th:if="${errorMessage}" class="error-message">
                               <p th:text="${errorMessage}"></p>
-                           </div> -->
+                           </div>
                            <div class="form-outline mb-4">
                               <input type="text" id="signup_FirstName" name="name" placeholder="Name" th:field="*{name}" class="form-control form-control-lg" />
                            </div>
@@ -57,7 +59,11 @@
 
                            <!-- Button trigger modal -->
                        
-                        </form>
+                        <!-- </form>
+                        <form th:object="${nonUser}" action="/submit-form" id="formInfo">
+                           <input type="" name="userId" th:value="${nonUser.nuid}" method="get"/>
+                           <button type="submit" id="submitButton">Submit Form</button>
+                        </form> -->
                      </div>
                      
 
@@ -120,7 +126,21 @@
                      </div>
                      
 
-
+                     <script>
+                        function validateForm() {
+                            // Get the phone number input field value
+                            var newPhone = document.getElementsByName("phone")[0].value;
+                        
+                            // Perform the validation for duplicate phone numbers
+                            if (existingNonUserPhoneNumbers.includes(newPhone)) {
+                                alert("Phone number already exists in the system, please change");
+                                return false; // Prevent form submission
+                            }
+                        
+                            // If validation passes, allow form submission
+                            return true;
+                        }
+                        </script>
 
                      <!-- Appliance set of questions -->
                      <div class="collapse" id="appliance_choose">
@@ -326,7 +346,7 @@
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-               <form id="modalForm">
+               <form  action="/nonusers/edit" method="post"  id="modalForm">
                   <div class="form-outline mb-4">
                     <input type="text" id="modal_FirstName" name="name" placeholder="First Name" class="form-control form-control-lg" required/>
                   </div>
@@ -342,7 +362,7 @@
                 </form>
              </div>
              <div class="modal-footer">
-               <button class="btn btn-primary" data-bs-target="#exampleModal_2" data-bs-toggle="modal" onclick="copyDataBack()">Everything is correct</button>
+               <button class="btn btn-primary" type="submit" data-bs-target="#exampleModal_2" data-bs-toggle="modal" >Everything is correct</button>
              </div>
            </div>
          </div>
@@ -361,6 +381,7 @@
             document.getElementById('signup_LastName').value = document.getElementById('modal_LastName').value;
             document.getElementById('signup_Phone').value = document.getElementById('modal_Phone').value;
             document.getElementById('signup_Address').value = document.getElementById('modal_Address').value;
+            $('#modalform').submit();
          }
          </script>
        <!-- Modal -->
