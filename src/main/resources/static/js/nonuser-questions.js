@@ -182,24 +182,60 @@ $(document).ready(function() {
           $('#meter_gas').collapse('hide');
       }
   });
-
-
-
-
-  var totalRadioButtons = 6;
-  // Calculate the width increment for each radio button
-  var widthIncrement = 100 / totalRadioButtons;
-
-  // Listen for radio button change event
-  $('input[type=radio]').change(function() {
-      var checkedRadioButtons = $('input[type=radio]:checked').length;
-      var progressBarWidth = checkedRadioButtons * widthIncrement;
-      $('.progress-bar').css('width', progressBarWidth + '%').attr('aria-valuenow', progressBarWidth);
-  });
-
-
 });
 
+$(document).ready(function() {
+    // Variable to store the previous width of the progress bar
+    let previousWidth = 0;
+
+    // Function to update the progress bar width
+    function updateProgressBar() {
+      // Check if any modal is open
+      const isModalOpen = $('.modal.show').length > 0;
+      console.log(isModalOpen);
+
+      // Get the number of completed sections (excluding modals)
+      const checkedRadioButtons = $('input[type=radio]:checked').length;
+
+      // Calculate the width of each section in percentage
+      const sectionWidth = 100 / 6;
+
+      // Calculate the new width of the progress bar
+      let newWidth = checkedRadioButtons * sectionWidth;
+      $('.progress-bar').css('width', newWidth + '%');
+      previousWidth = newWidth;
+
+      // If any modal is open, set the progress bar width to 100%
+      if (isModalOpen) {
+        newWidth = 100;
+        $('.progress-bar').css('width', newWidth + '%');
+        // Record the previous width before changing it to 100%
+        previousWidth = newWidth;
+      } else {
+        // If no modal is open, set the progress bar width to the previous width
+        $('.progress-bar').css('width', newWidth + '%');
+        
+      }
+
+      // Update the progress bar width
+      
+    }
+// Add event listener to all radio buttons (including those in modals)
+$('input[type=radio]').change(function() {
+    updateProgressBar();
+  });
+    
+
+    // Add event listener to all modals to update progress bar on modal show and close
+    $('.modal').on('shown.bs.modal hidden.bs.modal', function() {
+      updateProgressBar();
+    });
+
+    // Initialize the progress bar on page load
+    updateProgressBar();
+  });
+
+  
 document.addEventListener('DOMContentLoaded', function() {
   // Get the modal
   var modal = document.getElementById("exampleModal");
