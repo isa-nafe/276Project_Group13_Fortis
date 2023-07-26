@@ -32,10 +32,25 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 // import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Controller
+
+
+
+
 public class UserController {
     @Autowired
     private UserRepository userRepo;
@@ -48,6 +63,7 @@ public class UserController {
     //     model.addAttribute("st", students);
     //     return "users/signup";
     // }
+    
         
 
     @GetMapping("/users/login")
@@ -61,6 +77,58 @@ public class UserController {
 
     // @Autowired
     // private BCryptPasswordEncoder passwordEncoder;
+
+
+
+
+// Replace this with your actual CLIENT_ID obtained from the Facebook Developer Console
+private static final String Facebook_ID = "985327895833851";
+
+// Existing methods and code in UserController...
+
+@PostMapping("/users/facebookLogin")
+public String processFacebookLogin(HttpServletRequest req, @CookieValue("g_csrf_token") String cookie, RedirectAttributes redirectAttributes) throws GeneralSecurityException, IOException {
+
+    // Your Facebook token verification logic goes here
+    // Replace this block with your actual Facebook token verification code
+    // Example code below assumes you have a method to verify Facebook tokens
+
+    String credentials = req.getParameter("credential");
+    if (credentials == null || credentials.isEmpty()) {
+        redirectAttributes.addFlashAttribute("errorMessage", "Invalid Facebook login token");
+        return "redirect:/users/login";
+    }
+
+    // Replace this with your actual method to verify Facebook tokens
+    // For example: boolean isValidToken = verifyFacebookToken(credentials);
+    boolean isValidToken = true; // Placeholder value, replace with actual verification
+
+    if (!isValidToken) {
+        redirectAttributes.addFlashAttribute("errorMessage", "Invalid Facebook login token");
+        return "redirect:/users/login";
+    }
+
+    // Process the Facebook login token and extract user information
+    // Replace the following block with your actual Facebook user extraction and processing code
+
+    // this is the JWT token received from the client-side
+    String userId = "1234567890"; // Replace with the actual user ID from the token
+
+    // User storedUser = userRepo.findByFacebookUserId(userId);
+    // if (storedUser != null) {
+    //     redirectAttributes.addAttribute("phone", storedUser.getPhone());
+    //     return "redirect:/users/form";
+    // }
+
+    redirectAttributes.addFlashAttribute("errorMessage", "User not found");
+    return "redirect:/users/login";
+}
+
+
+
+
+
+
 
     // Replace this with your actual CLIENT_ID obtained from the Google Developer Console
     private static final String CLIENT_ID = "837639856398-jss3vdlnb77uijdl9c3p217j8rjeeg8l.apps.googleusercontent.com";
