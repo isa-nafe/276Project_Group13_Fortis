@@ -51,13 +51,10 @@ public class NonUserController {
                 // Redirect or display an error message as needed
             }
         }
-            
-
-        // List<NonUser> nonusers = nonUserRepo.findAll();
-        // Collections.sort(students, Comparator.comparing(Student::getName));
-        // model.addAttribute("nu", nonusers);
         return "nonusers/form";
     }
+
+
 
     @PostMapping("/nonusers/edit")
     public String editStudent(@RequestParam Map<String, String> newnonuser, Model model, RedirectAttributes redirectAttributes) {
@@ -79,7 +76,7 @@ public class NonUserController {
             nonUserRepo.save(non);
         }
         redirectAttributes.addAttribute("phone", newPhone);
-        return "redirect:/nonusers/form";
+        return "redirect:/nonusers/open";
     }
 
     @PostMapping("/nonusers/add")
@@ -92,8 +89,8 @@ public class NonUserController {
         NonUser existingNonUser = nonUserRepo.findByPhone(newPhone);
         if (existingNonUser != null) {
             // Display an alert or error message indicating the duplicate phone number
-            redirectAttributes.addFlashAttribute("errorMessage", "Phone number already exists in the system");
-            return "redirect:/nonusers/login";
+            redirectAttributes.addFlashAttribute("errorMessage", "Phone number already exists in the system, please login");
+            return "redirect:/users/login";
         }
 
         nonUserRepo.save(new NonUser(newName, newLastName, newAddress, newPhone));
