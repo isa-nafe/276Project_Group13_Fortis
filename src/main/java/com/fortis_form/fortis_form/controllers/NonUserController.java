@@ -1,17 +1,22 @@
 package com.fortis_form.fortis_form.controllers;
 
+import java.util.HashMap;
 // import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.web.exchanges.HttpExchange.Principal;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fortis_form.fortis_form.models.NonUserRepository;
+import com.fortis_form.fortis_form.models.NonUserService;
 import com.fortis_form.fortis_form.models.NonUser;
 
 
@@ -21,6 +26,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class NonUserController {
     @Autowired
     private NonUserRepository nonUserRepo;
+    private NonUserService userService;
     
     @GetMapping("/nonusers/open")
     public String signUp(Model model){
@@ -65,12 +71,16 @@ public class NonUserController {
         NonUser non = nonUserRepo.findByNuid(id);
         String newPhone = newnonuser.get("phone");
         NonUser existingNonUser = nonUserRepo.findByPhone(newPhone);
-        // if (existingNonUser != null) {
+        // if (existingNonUser != null && existingNonUser.getNuid() != id) {
             
         //     System.out.println("not null");
         //     // Display an alert or error message indicating the duplicate phone number
+        //     redirectAttributes.addAttribute("phone", non.getPhone());
         //     redirectAttributes.addFlashAttribute("errorMessage", "Phone number already exists in the system, please change");
-        //     return "redirect:/nonusers/form";
+        //     return "redirect:/nonusers/forms";   
+        //     // return ResponseEntity.badRequest().body("Phone number already exists in the system, please change");
+        
+  
         // }
         String newName = newnonuser.get("name");
         String newLast = newnonuser.get("last_name");
@@ -79,12 +89,14 @@ public class NonUserController {
             non.setName(newName);
             non.setLast_name(newLast);
             non.setAddress(newAddress);
-            non.setPhone(newPhone);
+            //non.setPhone(newPhone);
             // Update other attributes if needed
             nonUserRepo.save(non);
         }
        // redirectAttributes.addAttribute("phone", newPhone);
-        return "redirect:/nonusers/open";
+        return "redirect:/nonusers/open";   
+        // return ResponseEntity.ok().body("Form submitted successfully");
+
     }
 
     @PostMapping("/nonusers/add")
@@ -111,6 +123,20 @@ public class NonUserController {
         response.setStatus(201);
         return "redirect:/nonusers/form";
     }
+    
+    // @GetMapping("/nonusers/check-phone-exists")
+    // public ResponseEntity<Map<String, Boolean>> checkPhoneExists(@RequestParam String phone, @RequestParam int userId) {
+        
+    //     NonUser nonUser = nonUserRepo.findByNuid(userId);
+    //     String newPhone = phone;
+    //     NonUser existingNonUser = nonUserRepo.findByPhone(newPhone);
+    //     // Check if a non-user with the same phone number exists and it's not the same as the current non-user being edited
+    //     boolean phoneExists = (existingNonUser != null) && (existingNonUser.getNuid() != userId);
+    //     System.out.println(phoneExists);
+    //     Map<String, Boolean> response = new HashMap<>();
+    //     response.put("phoneExists", phoneExists);
+    //     return ResponseEntity.ok(response);
+    // }
 
 
 
