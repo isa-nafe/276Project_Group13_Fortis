@@ -165,6 +165,8 @@
                         console.log('Successful login for: ' + response.name);
                         document.getElementById('status').innerHTML =
                           'Thanks for logging in, ' + response.name + '!';
+                        // Send the Facebook access token to the Java controller
+                        sendTokenToJavaController(response.authResponse.accessToken);
                     });
                 } else {
                     // The person is not logged into your app or we are unable to tell.
@@ -188,39 +190,32 @@
         });
       };
 
+      // Function to send the token to the Java controller
+      function sendTokenToJavaController(token) {
+      var xhr = new XMLHttpRequest();
+      var url = '/users/facebookToken'; // Replace this with your Java controller's endpoint
+
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          // Request was successful, handle the response if needed
+          console.log(xhr.responseText);
+        }
+      };
+
+    var data = JSON.stringify({ token: token });
+    xhr.send(data);
+  }
+
       (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
         js = d.createElement(s); js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));  
-//       function statusChangeCallback(response) {
-//         console.log('running statusChangeCallback...');
-//         console.log(response);
-//       }
-
-//     window.fbAsyncInit = function () {
-//     //FB JavaScript SDK configuration and setup
-//     FB.init({
-//         appId: '586954626932234', //FB App ID
-//         cookie: true,  //enable cookies to allow the server to access the session
-//         xfbml: true,  //parse social plugins on this page
-//         version: 'v17.0' //use this graph api version 3.2
-//     });
-//     FB.getLoginStatus(function (response) {
-//     console.log(response);
-//     });
-// }
-
-//     //Load the JavaScript SDK asynchronously
-//     (function(d, s, id){
-//      var js, fjs = d.getElementsByTagName(s)[0];
-//      if (d.getElementById(id)) {return;}
-//      js = d.createElement(s); js.id = id;
-//      js.src = "https://connect.facebook.net/en_US/sdk.js";
-//      fjs.parentNode.insertBefore(js, fjs);
-//    }(document, 'script', 'facebook-jssdk'));
+      }(document, 'script', 'facebook-jssdk'));
     </script>
 </body>
 </html>
