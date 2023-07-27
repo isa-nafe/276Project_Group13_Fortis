@@ -159,21 +159,18 @@
                 // app know the current login status of the person.
                 // Full docs on the response object can be found in the documentation
                 // for FB.getLoginStatus().
-                if (response && response.authResponse && response.authResponse.accessToken) {
+                if (response.status === 'connected') {
                 // Logged into your app and Facebook.
-                console.log('Welcome!  Fetching your information.... ');
+                console.log('Welcome! Fetching your information....');
                 FB.api('/me', function (response) {
                   console.log('Successful login for: ' + response.name);
                   document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-
+                  // Fetch the access token
+                  var accessToken = FB.getAuthResponse()['accessToken'];
                   // Send the Facebook access token to the Java controller
-                  sendTokenToJavaController(response.authResponse.accessToken);
+                  sendTokenToJavaController(accessToken);
                 });
-                } else if (response.status === 'connected') {
-      // There is no accessToken, but the user is connected to your app
-      console.log('Welcome! User connected to your app.');
-      document.getElementById('status').innerHTML = 'User connected to your app.';
-    }
+                }
                 // if (response.status === 'connected') {
                 //     // Logged into your app and Facebook.
                 //     console.log('Welcome!  Fetching your information.... ');
