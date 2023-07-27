@@ -169,7 +169,11 @@
                   // Send the Facebook access token to the Java controller
                   sendTokenToJavaController(response.authResponse.accessToken);
                 });
-                }
+                } else if (response.status === 'connected') {
+      // There is no accessToken, but the user is connected to your app
+      console.log('Welcome! User connected to your app.');
+      document.getElementById('status').innerHTML = 'User connected to your app.';
+    }
                 // if (response.status === 'connected') {
                 //     // Logged into your app and Facebook.
                 //     console.log('Welcome!  Fetching your information.... ');
