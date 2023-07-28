@@ -47,215 +47,215 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 
 public class UserController {
-    @Autowired
-    private UserRepository userRepo;
+   @Autowired
+   private UserRepository userRepo;
 
-    // @GetMapping("/users/open")
-    // public String signUp(Model model){
-    // System.out.println("getting students for histo");
-    // List<User> students = userRepo.findAll();
-    // // Collections.sort(students, Comparator.comparing(Student::getName));
-    // model.addAttribute("st", students);
-    // return "users/signup";
-    // }
+   // @GetMapping("/users/open")
+   // public String signUp(Model model){
+   // System.out.println("getting students for histo");
+   // List<User> students = userRepo.findAll();
+   // // Collections.sort(students, Comparator.comparing(Student::getName));
+   // model.addAttribute("st", students);
+   // return "users/signup";
+   // }
 
-    @GetMapping("/users/login")
-    public String logIn(Model model) {
-        System.out.println("getting students for histo");
-        List<User> students = userRepo.findAll();
-        // Collections.sort(students, Comparator.comparing(Student::getName));
-        model.addAttribute("st", students);
-        return "users/login";
-    }
+   @GetMapping("/users/login")
+   public String logIn(Model model) {
+      System.out.println("getting students for histo");
+      List < User > students = userRepo.findAll();
+      // Collections.sort(students, Comparator.comparing(Student::getName));
+      model.addAttribute("st", students);
+      return "users/login";
+   }
 
-    // @Autowired
-    // private BCryptPasswordEncoder passwordEncoder;
+   // @Autowired
+   // private BCryptPasswordEncoder passwordEncoder;
 
-    // Replace this with your actual CLIENT_ID obtained from the Facebook Developer
-    // Console
-    private static final String Facebook_ID = "985327895833851";
+   // Replace this with your actual CLIENT_ID obtained from the Facebook Developer
+   // Console
+   private static final String Facebook_ID = "985327895833851";
 
-    // Existing methods and code in UserController...
+   // Existing methods and code in UserController...
 
-    @PostMapping("/users/facebookToken")
-    public ResponseEntity<String> processFacebookToken(@RequestBody Map<String, String> requestBody) {
-        String facebookToken = requestBody.get("token");
+   @PostMapping("/users/facebookToken")
+   public ResponseEntity < String > processFacebookToken(@RequestBody Map < String, String > requestBody) {
+      String facebookToken = requestBody.get("token");
 
-        // Process the Facebook token and extract user information
-        // Replace the following block with your actual Facebook user extraction and
-        // processing code
+      // Process the Facebook token and extract user information
+      // Replace the following block with your actual Facebook user extraction and
+      // processing code
 
-        // For demonstration purposes, let's just print the received token
-        System.out.println("Received Facebook Token: " + facebookToken);
+      // For demonstration purposes, let's just print the received token
+      System.out.println("Received Facebook Token: " + facebookToken);
 
-        // You can also perform your database comparison here
-        // For example, compare the token with your stored tokens
+      // You can also perform your database comparison here
+      // For example, compare the token with your stored tokens
 
-        // Return a response to the JavaScript function (optional)
-        return new ResponseEntity<>("Received Facebook Token successfully", HttpStatus.OK);
-    }
+      // Return a response to the JavaScript function (optional)
+      return new ResponseEntity < > ("Received Facebook Token successfully", HttpStatus.OK);
+   }
 
-    // Replace this with your actual CLIENT_ID obtained from the Google Developer
-    // Console
-    private static final String CLIENT_ID = "837639856398-jss3vdlnb77uijdl9c3p217j8rjeeg8l.apps.googleusercontent.com";
+   // Replace this with your actual CLIENT_ID obtained from the Google Developer
+   // Console
+   private static final String CLIENT_ID = "837639856398-jss3vdlnb77uijdl9c3p217j8rjeeg8l.apps.googleusercontent.com";
 
-    @PostMapping("/users/googleLogin")
-    public String processGoogleLogin(HttpServletRequest req, @CookieValue("g_csrf_token") String cookie,
-            RedirectAttributes redirectAttributes) throws GeneralSecurityException, IOException {
+   @PostMapping("/users/googleLogin")
+   public String processGoogleLogin(HttpServletRequest req, @CookieValue("g_csrf_token") String cookie,
+      RedirectAttributes redirectAttributes) throws GeneralSecurityException, IOException {
 
-        GooglePublicKeysManager manager = new GooglePublicKeysManager(new NetHttpTransport(), new GsonFactory());
+      GooglePublicKeysManager manager = new GooglePublicKeysManager(new NetHttpTransport(), new GsonFactory());
 
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(manager)
-                // Specify the CLIENT_ID of the app that accesses the backend:
-                .setAudience(Collections.singletonList(CLIENT_ID))
-                // Or, if multiple clients access the backend:
-                // .setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-                .build();
+      GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(manager)
+         // Specify the CLIENT_ID of the app that accesses the backend:
+         .setAudience(Collections.singletonList(CLIENT_ID))
+         // Or, if multiple clients access the backend:
+         // .setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+         .build();
 
-        if (req.getParameter("g_csrf_token") == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-            System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-            return "redirect:/users/login";
-        }
+      if (req.getParameter("g_csrf_token") == null) {
+         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+         return "redirect:/users/login";
+      }
 
-        if (cookie == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-            System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-            return "redirect:/users/login";
-        }
+      if (cookie == null) {
+         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+         return "redirect:/users/login";
+      }
 
-        if (!Objects.equals(req.getParameter("g_csrf_token"), cookie)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-            System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-            return "redirect:/users/login";
-        }
+      if (!Objects.equals(req.getParameter("g_csrf_token"), cookie)) {
+         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+         return "redirect:/users/login";
+      }
 
-        // this is the JWT token received from the client-side
-        String credentials = req.getParameter("credential");
+      // this is the JWT token received from the client-side
+      String credentials = req.getParameter("credential");
 
-        GoogleIdToken idToken = verifier.verify(credentials);
-        if (idToken != null) {
-            Payload payload = idToken.getPayload();
+      GoogleIdToken idToken = verifier.verify(credentials);
+      if (idToken != null) {
+         Payload payload = idToken.getPayload();
 
-            // Print user identifier
-            String userId = payload.getSubject();
-            System.out.println("User ID: " + userId);
+         // Print user identifier
+         String userId = payload.getSubject();
+         System.out.println("User ID: " + userId);
 
-            // Get profile information from payload
-            String email = payload.getEmail();
-            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-            String name = (String) payload.get("name");
-            String pictureUrl = (String) payload.get("picture");
-            String locale = (String) payload.get("locale");
-            String familyName = (String) payload.get("family_name");
-            String givenName = (String) payload.get("given_name");
+         // Get profile information from payload
+         String email = payload.getEmail();
+         boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+         String name = (String) payload.get("name");
+         String pictureUrl = (String) payload.get("picture");
+         String locale = (String) payload.get("locale");
+         String familyName = (String) payload.get("family_name");
+         String givenName = (String) payload.get("given_name");
 
-            System.out.println(name);
+         System.out.println(name);
 
-            User storedUser = userRepo.findByEmail(email);
-            if (storedUser != null) {
-                redirectAttributes.addAttribute("phone", storedUser.getPhone());
-                return "redirect:/users/form";
-            }
-
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-            System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-            return "redirect:/users/login";
-        }
-
-        redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-        System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-        return "redirect:/users/login";
-    }
-
-    // @PostMapping("/users/googleLogin")
-    // public ResponseEntity<?> googleLogin(@RequestBody String idTokenString) {
-    // System.out.println(idTokenString);
-    // GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new
-    // NetHttpTransport(), new JacksonFactory())
-    // // Specify the CLIENT_ID of the app that accesses the backend:
-    // .setAudience(Collections.singletonList(CLIENT_ID))
-    // .build();
-
-    // GoogleIdToken idToken = null;
-    // try {
-    // idToken = verifier.verify(idTokenString);
-    // // System.out.println(idToken);
-
-    // } catch (Exception e) {
-    // return new ResponseEntity<>("Invalid ID token.", HttpStatus.UNAUTHORIZED);
-    // }
-
-    // if (idToken != null) {
-    // Payload payload = idToken.getPayload();
-
-    // // Get profile information from payload
-    // String userId = payload.getSubject();
-    // String email = payload.getEmail();
-    // boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-    // String name = (String) payload.get("name");
-    // String pictureUrl = (String) payload.get("picture");
-    // String locale = (String) payload.get("locale");
-
-    // // Use or store profile information
-    // // ...
-
-    // return new ResponseEntity<>("Logged in with Google: " + email,
-    // HttpStatus.OK);
-    // } else {
-    // return new ResponseEntity<>("Invalid ID token.", HttpStatus.UNAUTHORIZED);
-    // }
-    // }
-
-    @PostMapping("/users/login")
-    public String processLogin(@RequestParam(required = false) String email, String password,
-            RedirectAttributes redirectAttributes) {
-        System.out.println(password);
-        // Retrieve the user from the database using the email
-        User storedUser = userRepo.findByEmail(email);
-        if (storedUser != null) {
+         User storedUser = userRepo.findByEmail(email);
+         if (storedUser != null) {
             redirectAttributes.addAttribute("phone", storedUser.getPhone());
-            if (storedUser.getPassword().equals(password)) {
-                // Compare the plain text password with the stored password
-                return "redirect:/users/form";
-            }
-        }
+            return "redirect:/users/form";
+         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-        System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-        return "redirect:/users/login";
+      } else {
+         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+         return "redirect:/users/login";
+      }
 
-    }
+      redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+      System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+      return "redirect:/users/login";
+   }
 
-    @GetMapping("/users/form")
-    public String UserForm(@RequestParam(required = false) String phone, Model model) {
-        System.out.println("getting users");
+   // @PostMapping("/users/googleLogin")
+   // public ResponseEntity<?> googleLogin(@RequestBody String idTokenString) {
+   // System.out.println(idTokenString);
+   // GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new
+   // NetHttpTransport(), new JacksonFactory())
+   // // Specify the CLIENT_ID of the app that accesses the backend:
+   // .setAudience(Collections.singletonList(CLIENT_ID))
+   // .build();
 
-        if (phone != null) {
-            User user = userRepo.findByPhone(phone);
-            if (user != null) {
-                model.addAttribute("user", user);
-            } else {
-                return "redirect:/users/form";
-                // Handle the case when the user is not found
-                // Redirect or display an error message as needed
-            }
-        }
+   // GoogleIdToken idToken = null;
+   // try {
+   // idToken = verifier.verify(idTokenString);
+   // // System.out.println(idToken);
 
-        // List<NonUser> nonusers = nonUserRepo.findAll();
-        // Collections.sort(students, Comparator.comparing(Student::getName));
-        // model.addAttribute("nu", nonusers);
-        return "users/form";
-    }
+   // } catch (Exception e) {
+   // return new ResponseEntity<>("Invalid ID token.", HttpStatus.UNAUTHORIZED);
+   // }
 
-    // @GetMapping("/users/reset")
-    // public String Reset(@RequestParam Map<String, String> newnonuser,
-    // RedirectAttributes redirectAttributes){
-    // System.out.println("resetting users");
-    // String newPhone = newnonuser.get("phone");
-    // redirectAttributes.addAttribute("phone", newPhone);
-    // return "users/form";
-    // }
+   // if (idToken != null) {
+   // Payload payload = idToken.getPayload();
+
+   // // Get profile information from payload
+   // String userId = payload.getSubject();
+   // String email = payload.getEmail();
+   // boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+   // String name = (String) payload.get("name");
+   // String pictureUrl = (String) payload.get("picture");
+   // String locale = (String) payload.get("locale");
+
+   // // Use or store profile information
+   // // ...
+
+   // return new ResponseEntity<>("Logged in with Google: " + email,
+   // HttpStatus.OK);
+   // } else {
+   // return new ResponseEntity<>("Invalid ID token.", HttpStatus.UNAUTHORIZED);
+   // }
+   // }
+
+   @PostMapping("/users/login")
+   public String processLogin(@RequestParam(required = false) String email, String password,
+      RedirectAttributes redirectAttributes) {
+      System.out.println(password);
+      // Retrieve the user from the database using the email
+      User storedUser = userRepo.findByEmail(email);
+      if (storedUser != null) {
+         redirectAttributes.addAttribute("phone", storedUser.getPhone());
+         if (storedUser.getPassword().equals(password)) {
+            // Compare the plain text password with the stored password
+            return "redirect:/users/form";
+         }
+      }
+
+      redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+      System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+      return "redirect:/users/login";
+
+   }
+
+   @GetMapping("/users/form")
+   public String UserForm(@RequestParam(required = false) String phone, Model model) {
+      System.out.println("getting users");
+
+      if (phone != null) {
+         User user = userRepo.findByPhone(phone);
+         if (user != null) {
+            model.addAttribute("user", user);
+         } else {
+            return "redirect:/users/form";
+            // Handle the case when the user is not found
+            // Redirect or display an error message as needed
+         }
+      }
+
+      // List<NonUser> nonusers = nonUserRepo.findAll();
+      // Collections.sort(students, Comparator.comparing(Student::getName));
+      // model.addAttribute("nu", nonusers);
+      return "users/form";
+   }
+
+   // @GetMapping("/users/reset")
+   // public String Reset(@RequestParam Map<String, String> newnonuser,
+   // RedirectAttributes redirectAttributes){
+   // System.out.println("resetting users");
+   // String newPhone = newnonuser.get("phone");
+   // redirectAttributes.addAttribute("phone", newPhone);
+   // return "users/form";
+   // }
 
 }
