@@ -99,15 +99,15 @@
 
                                  <form id="facebook_form" action="/facebook/login" method="post">
                                   <input type="hidden" name="email" id="email_facebook" placeholder="Email" class="form-control form-control-lg" required />
-                                  <!-- <button onclick="sendSomething()" type="submit" >Send Data</button> -->
-                                    <div class="fb-login-button"
+                                    
+                                </form>
+                                <div class="fb-login-button"
                                     data-width="300px"
                                     data-size="large"
                                     data-button-type="continue_with"
                                     data-layout="default"
                                     data-auto-logout-link="false"
                                     data-use-continue-as="false"></div>
-                                </form>
                                  
                               </div>
                            </div>
@@ -120,14 +120,17 @@
             </div>
          </div>
       </div>
-      <div id="status"></div>
-      <div id="fb-root"></div>
+      <!-- <div id="status"></div>
+      <div id="fb-root"></div> -->
       <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0&appId=586954626932234&autoLogAppEvents=1" nonce="KVbzhGGv"></script>
       <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
       <script>
-         function statusChangeCallback(response) {
+        
+        document.addEventListener('DOMContentLoaded', function() {
+
+          function statusChangeCallback(response) {
                   console.log('statusChangeCallback');
                   console.log(response);
                   // The response object is returned with a status field that lets the
@@ -173,10 +176,10 @@
           });
          };
 
-        //  function sendSomething(){
-        //   var email = "a@gmail.com"
-        //   sendEmailToJavaController(email);
-        //  }
+         function sendSomething(){
+          var email = "a@gmail.com"
+          sendEmailToJavaController(email);
+         }
 
          function sendEmailToJavaController(email) {
   // var xhr = new XMLHttpRequest();
@@ -230,6 +233,11 @@ document.getElementById("facebook_form").submit();
           js.src = "https://connect.facebook.net/en_US/sdk.js";
           fjs.parentNode.insertBefore(js, fjs);
          }(document, 'script', 'facebook-jssdk'));
+
+});
+
+
+        
       </script>
    </body>
 </html>
