@@ -78,7 +78,7 @@ public class UserController {
    // Existing methods and code in UserController...
 
    @PostMapping("/users/facebookToken")
-public String processFacebookToken(@RequestBody String email, RedirectAttributes redirectAttributes) {
+public String processFacebookToken(@RequestParam String email, RedirectAttributes redirectAttributes) {
     String facebookEmail = email;
 
     // For demonstration purposes, let's just print the received email
@@ -168,45 +168,6 @@ public String processFacebookToken(@RequestBody String email, RedirectAttributes
       System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
       return "redirect:/users/login";
    }
-
-   // @PostMapping("/users/googleLogin")
-   // public ResponseEntity<?> googleLogin(@RequestBody String idTokenString) {
-   // System.out.println(idTokenString);
-   // GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new
-   // NetHttpTransport(), new JacksonFactory())
-   // // Specify the CLIENT_ID of the app that accesses the backend:
-   // .setAudience(Collections.singletonList(CLIENT_ID))
-   // .build();
-
-   // GoogleIdToken idToken = null;
-   // try {
-   // idToken = verifier.verify(idTokenString);
-   // // System.out.println(idToken);
-
-   // } catch (Exception e) {
-   // return new ResponseEntity<>("Invalid ID token.", HttpStatus.UNAUTHORIZED);
-   // }
-
-   // if (idToken != null) {
-   // Payload payload = idToken.getPayload();
-
-   // // Get profile information from payload
-   // String userId = payload.getSubject();
-   // String email = payload.getEmail();
-   // boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-   // String name = (String) payload.get("name");
-   // String pictureUrl = (String) payload.get("picture");
-   // String locale = (String) payload.get("locale");
-
-   // // Use or store profile information
-   // // ...
-
-   // return new ResponseEntity<>("Logged in with Google: " + email,
-   // HttpStatus.OK);
-   // } else {
-   // return new ResponseEntity<>("Invalid ID token.", HttpStatus.UNAUTHORIZED);
-   // }
-   // }
 
    @PostMapping("/users/login")
    public String processLogin(@RequestParam(required = false) String email, String password,
