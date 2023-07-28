@@ -80,19 +80,34 @@ public class UserController {
     @PostMapping("/users/facebookToken")
     public ResponseEntity<String> processFacebookToken(@RequestBody Map<String, String> requestBody) {
         String facebookToken = requestBody.get("token");
+        String email = requestBody.get("email");
 
-        // Process the Facebook token and extract user information
-        // Replace the following block with your actual Facebook user extraction and
-        // processing code
-
-        // For demonstration purposes, let's just print the received token
+        // Process the Facebook token and email and perform necessary actions
+        // For demonstration purposes, let's just print the received token and email
         System.out.println("Received Facebook Token: " + facebookToken);
+        System.out.println("Received Email: " + email);
 
-        // You can also perform your database comparison here
-        // For example, compare the token with your stored tokens
+        // You can also perform your database comparison or any other actions here
+        // For example, compare the token with your stored tokens and check if the email
+        // is valid
 
         // Return a response to the JavaScript function (optional)
-        return new ResponseEntity<>("Received Facebook Token successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Received Facebook Token and Email successfully", HttpStatus.OK);
+        // String facebookToken = requestBody.get("token");
+
+        // // Process the Facebook token and extract user information
+        // // Replace the following block with your actual Facebook user extraction and
+        // // processing code
+
+        // // For demonstration purposes, let's just print the received token
+        // System.out.println("Received Facebook Token: " + facebookToken);
+
+        // // You can also perform your database comparison here
+        // // For example, compare the token with your stored tokens
+
+        // // Return a response to the JavaScript function (optional)
+        // return new ResponseEntity<>("Received Facebook Token successfully",
+        // HttpStatus.OK);
     }
 
     // Replace this with your actual CLIENT_ID obtained from the Google Developer
