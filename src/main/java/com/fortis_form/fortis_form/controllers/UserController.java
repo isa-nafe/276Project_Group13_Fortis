@@ -78,21 +78,23 @@ public class UserController {
    // Existing methods and code in UserController...
 
    @PostMapping("/users/facebookToken")
-   public ResponseEntity < String > processFacebookToken(@RequestBody Map < String, String > requestBody) {
-      String facebookToken = requestBody.get("token");
-
-      // Process the Facebook token and extract user information
-      // Replace the following block with your actual Facebook user extraction and
-      // processing code
+   public String processFacebookToken(@RequestParam String email, RedirectAttributes redirectAttributes) {
+      String facebookEmail = email;
 
       // For demonstration purposes, let's just print the received token
-      System.out.println("Received Facebook Token: " + facebookToken);
+      System.out.println("Received Facebook Email: " + facebookEmail);
 
-      // You can also perform your database comparison here
-      // For example, compare the token with your stored tokens
+      User storedUser = userRepo.findByEmail(email);
+         if (storedUser != null) {
+            redirectAttributes.addAttribute("phone", storedUser.getPhone());
+            return "redirect:/users/form";
+         }
 
-      // Return a response to the JavaScript function (optional)
-      return new ResponseEntity < > ("Received Facebook Token successfully", HttpStatus.OK);
+       else {
+         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+         return "redirect:/users/login";
+      }
    }
 
    // Replace this with your actual CLIENT_ID obtained from the Google Developer

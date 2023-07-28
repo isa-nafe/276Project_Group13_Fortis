@@ -140,23 +140,10 @@
                     console.log('Email: '+ response.email)
                     document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
                     // Fetch the access token
-                    var accessToken = FB.getAuthResponse()['accessToken'];
                     // Send the Facebook access token to the Java controller
-                    sendTokenToJavaController(accessToken);
+                    sendTokenToJavaController(response.email);
                   });
                   }
-                  // if (response.status === 'connected') {
-                  //     // Logged into your app and Facebook.
-                  //     console.log('Welcome!  Fetching your information.... ');
-                  //     FB.api('/me', function (response) {
-                  //         console.log('Successful login for: ' + response.name);
-                  //         document.getElementById('status').innerHTML =
-                  //           'Thanks for logging in, ' + response.name + '!';
-                  //         var accessToken = response.authResponse.accessToken;
-                  //         // Send the Facebook access token to the Java controller
-                  //         sendTokenToJavaController(accessToken);
-                  //     });
-                  // } 
                   else {
                       // The person is not logged into your app or we are unable to tell.
                       document.getElementById('status').innerHTML = 'Please log ' +
@@ -194,8 +181,7 @@
           }
          };
          
-         var data = JSON.stringify({ token: token });
-         xhr.send(data);
+         xhr.send(token);
          }
          
          (function(d, s, id){
