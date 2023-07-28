@@ -141,7 +141,8 @@
                     document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
                     // Fetch the access token
                     // Send the Facebook access token to the Java controller
-                    sendEmailToJavaController(response.email);
+                    var email = response.email;
+                    sendEmailToJavaController(email);
                   });
                   }
                   else {
@@ -169,12 +170,10 @@
          function sendEmailToJavaController(email) {
   var xhr = new XMLHttpRequest();
   var url = '/users/facebookToken'; // Replace this with your Java controller's endpoint
-  
-  // Append the email as a URL parameter
-  url += '?email=' + encodeURIComponent(email);
-  
+
   xhr.open('POST', url, true);
-  
+  xhr.setRequestHeader('Content-Type', 'text/plain'); // Set the content type to plain text
+
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       if (xhr.status === 200) {
@@ -186,8 +185,8 @@
       }
     }
   };
-  
-  xhr.send(); // Send the request without any payload, as the email is in the URL parameter
+
+  xhr.send(email); // Send the email string directly as the request payload (plain text)
 }
          
          (function(d, s, id){

@@ -78,24 +78,22 @@ public class UserController {
    // Existing methods and code in UserController...
 
    @PostMapping("/users/facebookToken")
-   public String processFacebookToken(@RequestParam String email, RedirectAttributes redirectAttributes) {
-      String facebookEmail = email;
+public String processFacebookToken(@RequestBody String email, RedirectAttributes redirectAttributes) {
+    String facebookEmail = email;
 
-      // For demonstration purposes, let's just print the received token
-      System.out.println("Received Facebook Email: " + facebookEmail);
+    // For demonstration purposes, let's just print the received email
+    System.out.println("Received Facebook Email: " + facebookEmail);
 
-      User storedUser = userRepo.findByEmail(email);
-         if (storedUser != null) {
-            redirectAttributes.addAttribute("phone", storedUser.getPhone());
-            return "redirect:/users/form";
-         }
-
-       else {
-         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-         return "redirect:/users/login";
-      }
-   }
+    User storedUser = userRepo.findByEmail(email);
+    if (storedUser != null) {
+        redirectAttributes.addAttribute("phone", storedUser.getPhone());
+        return "redirect:/users/form";
+    } else {
+        redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+        System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+        return "redirect:/users/login";
+    }
+}
 
    // Replace this with your actual CLIENT_ID obtained from the Google Developer
    // Console
