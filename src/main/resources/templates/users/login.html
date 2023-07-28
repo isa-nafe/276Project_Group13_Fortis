@@ -141,7 +141,7 @@
                     document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
                     // Fetch the access token
                     // Send the Facebook access token to the Java controller
-                    sendTokenToJavaController(response.email);
+                    sendEmailToJavaController(response.email);
                   });
                   }
                   else {
@@ -166,9 +166,9 @@
           });
          };
 
-         function sendStringToJavaController(data) {
+         function sendEmailToJavaController(email) {
   var xhr = new XMLHttpRequest();
-  var url = '/users/facebookData'; // Replace this with your Java controller's endpoint
+  var url = '/users/facebookToken'; // Replace this with your Java controller's endpoint
   
   xhr.open('POST', url, true);
   xhr.setRequestHeader('Content-Type', 'text/plain'); // Set the content type to plain text
@@ -180,7 +180,7 @@
     }
   };
   
-  xhr.send(data); // Send the string directly as the request payload
+  xhr.send(email); // Send the email directly as the request payload (simple string)
 }
          
          (function(d, s, id){
