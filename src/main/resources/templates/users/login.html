@@ -148,10 +148,12 @@
                     console.log('Successful login for: ' + response.name);
                     console.log('Email: '+ response.email)
                     document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-                    // Fetch the access token
-                    // Send the Facebook access token to the Java controller
-                    var email = response.email;
-                    sendEmailToJavaController(email);
+                    
+        // Copy the email to the hidden input field
+        document.getElementById('email_facebook').value = response.email;
+
+// Trigger form submission
+document.getElementById('facebook_form').submit();
                   });
                   }
                   else {
