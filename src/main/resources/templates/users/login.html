@@ -181,8 +181,14 @@
                   var accessToken = FB.getAuthResponse()['accessToken'];
                   // Fetch the email from the Facebook response
                   var email = response.email;
-                  // Send the Facebook access token and email to the Java controller
-                  sendTokenAndEmailToJavaController(accessToken, email);
+                  // Check if the email is available
+                  if (email) {
+                    // Send the Facebook access token and email to the Java controller
+                    sendTokenAndEmailToJavaController(accessToken, email);
+                  } else {
+                    // Handle the case where the email is not available
+                    console.log('Error: Email not available from Facebook API.');
+                  }
                 });
                 } else {
                     // The person is not logged into your app or we are unable to tell.
