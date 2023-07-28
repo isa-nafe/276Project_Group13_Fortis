@@ -202,7 +202,9 @@
           appId      : '586954626932234',
           cookie     : true,
           xfbml      : true,
-          version    : 'v17.0'
+          version    : 'v17.0',
+          status: true, // Include status: true to use getLoginStatus() to check login status
+          scope: 'email' // Request 'email' scope during initialization
         });
       
         FB.AppEvents.logPageView();
@@ -211,6 +213,8 @@
           statusChangeCallback(response);
         });
       };
+
+
 
       // Function to send the token to the Java controller
       function sendTokenAndEmailToJavaController(token, email) {
