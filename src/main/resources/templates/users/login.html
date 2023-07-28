@@ -165,24 +165,23 @@
             statusChangeCallback(response);
           });
          };
-         
-         // Function to send the token to the Java controller
-         function sendTokenToJavaController(token) {
-         var xhr = new XMLHttpRequest();
-         var url = '/users/facebookToken'; // Replace this with your Java controller's endpoint
-         
-         xhr.open('POST', url, true);
-         xhr.setRequestHeader('Content-Type', 'application/json');
-         
-         xhr.onreadystatechange = function () {
-         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            // Request was successful, handle the response if needed
-            console.log(xhr.responseText);
-          }
-         };
-         
-         xhr.send(token);
-         }
+
+         function sendStringToJavaController(data) {
+  var xhr = new XMLHttpRequest();
+  var url = '/users/facebookData'; // Replace this with your Java controller's endpoint
+  
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'text/plain'); // Set the content type to plain text
+  
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      // Request was successful, handle the response if needed
+      console.log(xhr.responseText);
+    }
+  };
+  
+  xhr.send(data); // Send the string directly as the request payload
+}
          
          (function(d, s, id){
           var js, fjs = d.getElementsByTagName(s)[0];
