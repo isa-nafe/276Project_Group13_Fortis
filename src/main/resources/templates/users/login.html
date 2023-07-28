@@ -96,18 +96,24 @@
                                        data-size="large"
                                        data-logo_alignment="left"></div>
                                  </div>
-                                 <div class="row">
-                                  <div class="fb-login-button"
-                                  data-width="300px"
-                                  data-size="large"
-                                  data-button-type="continue_with"
-                                  data-layout="default"
-                                  data-auto-logout-link="false"
-                                  data-use-continue-as="false"></div>
-                                 </div>
+
+                                 <form id="facebook_form" action="/facebook/login" method="post">
+                                  <input type="hidden" name="email" id="email_facebook" placeholder="Email" class="form-control form-control-lg" required />
+                                  <!-- <button onclick="sendSomething()" type="submit" >Send Data</button> -->
+                                    <div class="fb-login-button"
+                                    data-width="300px"
+                                    data-size="large"
+                                    data-button-type="continue_with"
+                                    data-layout="default"
+                                    data-auto-logout-link="false"
+                                    data-use-continue-as="false"></div>
+                                </form>
+                                 
                               </div>
                            </div>
+                           
                   </form>
+                  
                   </div>
                   </div>
                </div>
@@ -167,27 +173,55 @@
           });
          };
 
+        //  function sendSomething(){
+        //   var email = "a@gmail.com"
+        //   sendEmailToJavaController(email);
+        //  }
+
          function sendEmailToJavaController(email) {
-  var xhr = new XMLHttpRequest();
-  var url = '/users/facebookToken'; // Replace this with your Java controller's endpoint
+  // var xhr = new XMLHttpRequest();
+  // var url = '/users/facebookToken'; // Replace this with your Java controller's endpoint
 
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-Type', 'text/plain'); // Set the content type to plain text
+  // xhr.open('POST', url, true);
+  // xhr.setRequestHeader('Content-Type', 'text/plain'); // Set the content type to plain text
 
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        // Request was successful, handle the response if needed
-        console.log(xhr.responseText);
-      } else {
-        // Request encountered an error, handle the error response if needed
-        console.error('Error status:', xhr.status);
-      }
-    }
-  };
+  // xhr.onreadystatechange = function () {
+  //   if (xhr.readyState === XMLHttpRequest.DONE) {
+  //     if (xhr.status === 200) {
+  //       // Request was successful, handle the response if needed
+  //       console.log(xhr.responseText);
+  //     } else {
+  //       // Request encountered an error, handle the error response if needed
+  //       console.error('Error status:', xhr.status);
+  //     }
+  //   }
+  // };
 
-  xhr.send(email); // Send the email string directly as the request payload (plain text)
+  // xhr.send(email); // Send the email string directly as the request payload (plain text)
+//   var xhr = new XMLHttpRequest();
+
+// xhr.onreadystatechange = function() {
+//     if (xhr.readyState === XMLHttpRequest.DONE) {
+//         // No response handling needed on the client-side
+//         // The server will handle the redirection
+//     }
+// };
+
+// var data = 'email=' + encodeURIComponent(email); // Encode the email as a URL parameter
+
+// xhr.open('POST', '/users/facebookLogin', true);
+// xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+// xhr.send(data);
+
+document.getElementById("email_facebook").value = email;
+document.getElementById("facebook_form").submit();
 }
+
+
+
+
+
+
          
          (function(d, s, id){
           var js, fjs = d.getElementsByTagName(s)[0];

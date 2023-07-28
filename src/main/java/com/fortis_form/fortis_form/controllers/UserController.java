@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fortis_form.fortis_form.models.User;
@@ -28,21 +31,13 @@ import com.google.api.client.googleapis.auth.oauth2.GooglePublicKeysManager;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 
 import jakarta.servlet.http.HttpServletRequest;
-
-import java.io.IOException;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 // import org.springframework.security.crypto.password.PasswordEncoder;
+
+
 
 @Controller
 
@@ -77,23 +72,46 @@ public class UserController {
 
    // Existing methods and code in UserController...
 
-   @PostMapping("/users/facebookToken")
-public String processFacebookToken(@RequestParam String email, RedirectAttributes redirectAttributes) {
-    String facebookEmail = email;
+   @PostMapping("/facebook/login")
+   public String processFacebookLogin(@RequestParam(required = false) String email,
+      RedirectAttributes redirectAttributes) {
 
-    // For demonstration purposes, let's just print the received email
-    System.out.println("Received Facebook Email: " + facebookEmail);
+      // Retrieve the user from the database using the email
+      User storedUser = userRepo.findByEmail(email);
+      if (storedUser != null) {
+         redirectAttributes.addAttribute("phone", storedUser.getPhone());
+            // Compare the plain text password with the stored password
+            return "redirect:/users/form";
+      }
 
-    User storedUser = userRepo.findByEmail(email);
-    if (storedUser != null) {
-        redirectAttributes.addAttribute("phone", storedUser.getPhone());
-        return "redirect:/users/form";
-    } else {
-        redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-        System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-        return "redirect:/users/login";
-    }
-}
+      redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+      System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+      return "redirect:/users/login";
+
+   }
+   
+   
+
+
+   
+
+//    @PostMapping("/users/facebookToken")
+// public String processFacebookToken(@RequestParam String email, RedirectAttributes redirectAttributes) {
+//     String facebookEmail = email;
+
+//     // For demonstration purposes, let's just print the received email
+//     System.out.println("Received Facebook Email: " + facebookEmail);
+
+//     User storedUser = userRepo.findByEmail(email);
+//     if (storedUser != null) {
+//         redirectAttributes.addAttribute("phone", storedUser.getPhone());
+//         return "redirect:/users/form";
+//     } else {
+//         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+//         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
+//         return "redirect:/users/login";
+//     }
+// }
 
    // Replace this with your actual CLIENT_ID obtained from the Google Developer
    // Console
@@ -188,7 +206,7 @@ public String processFacebookToken(@RequestParam String email, RedirectAttribute
       return "redirect:/users/login";
 
    }
-
+   
    @GetMapping("/users/form")
    public String UserForm(@RequestParam(required = false) String phone, Model model) {
       System.out.println("getting users");
