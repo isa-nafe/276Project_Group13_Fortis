@@ -131,7 +131,11 @@
                   if (response.status === 'connected') {
                   // Logged into your app and Facebook.
                   console.log('Welcome! Fetching your information....');
-                  FB.api('/me', function (response) {
+                  FB.api('/me',
+  'GET',
+  {"fields":"id,name,email"},
+  function(response) {
+      // Insert your code here
                     console.log('Successful login for: ' + response.name);
                     console.log('Email: '+ response.email)
                     document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
