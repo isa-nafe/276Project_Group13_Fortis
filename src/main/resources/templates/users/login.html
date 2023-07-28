@@ -207,21 +207,21 @@
       };
 
       // Function to send the token to the Java controller
-      function sendTokenToJavaController(token) {
-      var xhr = new XMLHttpRequest();
-      var url = '/users/facebookToken'; // Replace this with your Java controller's endpoint
+      function sendTokenAndEmailToJavaController(token, email) {
+    var xhr = new XMLHttpRequest();
+    var url = '/users/facebookToken'; // Replace this with your Java controller endpoint
 
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-      xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-          // Request was successful, handle the response if needed
-          console.log(xhr.responseText);
-        }
-      };
+        // Request was successful, handle the response if needed
+        console.log(xhr.responseText);
+      }
+    };
 
-    var data = JSON.stringify({ token: token });
+    var data = JSON.stringify({ token: token, email: email });
     xhr.send(data);
   }
 
