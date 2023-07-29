@@ -19,9 +19,15 @@
       <title>Emergency Form</title>
    </head>
    <body>
-
-
-
+<style>
+      .error-message {
+         background-color: #f8d7da;
+         color: #721c24;
+         border: 1px solid #f5c6cb;
+         padding: 10px;
+         margin-bottom: 10px;
+       }
+</style>
       <!-- Progress bar -->
       <div class="progress-container">
          <div class="progress" style="height: 10px;">
@@ -40,30 +46,35 @@
                         
                         <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
                         <form th:object="${nonUser}" action="/nonusers/edit" method="post" id="userInfo">
-                           <input type="hidden" name="userId" th:value="${nonUser.nuid}" method="get" />
-                           <div th:if="${errorMessage}" class="error-message">
+                           <input type="hidden" name="userId" th:value="${nonUser.nuid}" method="post" />
+              
+                           <div th:if="${errorMessage}" id="errorMessage" class="error-message">
                               <p th:text="${errorMessage}"></p>
                            </div>
                            <div class="form-outline mb-4">
+                              <label for="signup_FirstName">First Name:</label>
                               <input type="text" id="signup_FirstName" name="name" placeholder="Name" th:field="*{name}" class="form-control form-control-lg" />
                            </div>
                            <div class="form-outline mb-4">
+                              <label for="signup_LastName">Last Name:</label>
                               <input type="text" id="signup_LastName" name="last_name" placeholder="Last Name" th:field="*{last_name}" class="form-control form-control-lg" />
                            </div>
                            <div class="form-outline mb-4">
+                              <label for="signup_Phone">Phone Number:</label>
                               <input type="text" id="signup_Phone" name="phone" placeholder="Phone number" th:field="*{phone}" class="form-control form-control-lg" />
                            </div>
                            <div class="form-outline mb-4">
+                              <label for="signup_Address">Address:</label>
                               <input type="text" id="signup_Address" name="address" placeholder="Address" th:field="*{address}" class="form-control form-control-lg" />
                            </div>
 
                            <!-- Button trigger modal -->
                        
-                        <!-- </form>
-                        <form th:object="${nonUser}" action="/submit-form" id="formInfo">
+                      </form>
+                        <!-- <form th:object="${nonUser}" action="/submit-form" id="formInfo">
                            <input type="" name="userId" th:value="${nonUser.nuid}" method="get"/>
                            <button type="submit" id="submitButton">Submit Form</button>
-                        </form> -->
+                        </form>  -->
                      </div>
                      
 
@@ -124,23 +135,7 @@
                            </div>
                         </div>
                      </div>
-                     
-
-                     <script>
-                        function validateForm() {
-                            // Get the phone number input field value
-                            var newPhone = document.getElementsByName("phone")[0].value;
-                        
-                            // Perform the validation for duplicate phone numbers
-                            if (existingNonUserPhoneNumbers.includes(newPhone)) {
-                                alert("Phone number already exists in the system, please change");
-                                return false; // Prevent form submission
-                            }
-                        
-                            // If validation passes, allow form submission
-                            return true;
-                        }
-                        </script>
+                  
 
                      <!-- Appliance set of questions -->
                      <div class="collapse" id="appliance_choose">
@@ -346,24 +341,29 @@
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-               <form  action="/nonusers/edit" method="post"  id="modalForm">
+               <form th:object="${nonUser}" id="modalForm">
                   <div class="form-outline mb-4">
+                     <label for="signup_FirstName">First Name:</label>
                     <input type="text" id="modal_FirstName" name="name" placeholder="First Name" class="form-control form-control-lg" required/>
                   </div>
                   <div class="form-outline mb-4">
+                     <label for="signup_FirstName">Last Name:</label>
                     <input type="text" id="modal_LastName" name="last_name" placeholder="Last Name" class="form-control form-control-lg" required/>
                   </div>
                   <div class="form-outline mb-4">
+                     <label for="signup_FirstName">Phone:</label>
                     <input type="text" id="modal_Phone" name="phone" placeholder="Phone number" class="form-control form-control-lg" required/>
                   </div>
                   <div class="form-outline mb-4">
+                     <label for="signup_FirstName">Address:</label>
                     <input type="text" id="modal_Address" name="address" placeholder="Address" class="form-control form-control-lg" required/>
                   </div>
+                  <div class="modal-footer">
+                     <button class="btn btn-primary" type="button" data-bs-target="#exampleModal_2" data-bs-toggle="modal"  onclick="copyDataBack()">Everything is correct</button>
+                   </div>
                 </form>
              </div>
-             <div class="modal-footer">
-               <button class="btn btn-primary" type="submit" data-bs-target="#exampleModal_2" data-bs-toggle="modal" >Everything is correct</button>
-             </div>
+            
            </div>
          </div>
        </div>
@@ -381,7 +381,7 @@
             document.getElementById('signup_LastName').value = document.getElementById('modal_LastName').value;
             document.getElementById('signup_Phone').value = document.getElementById('modal_Phone').value;
             document.getElementById('signup_Address').value = document.getElementById('modal_Address').value;
-            $('#modalform').submit();
+            // $('#modalform').submit();
          }
          </script>
        <!-- Modal -->

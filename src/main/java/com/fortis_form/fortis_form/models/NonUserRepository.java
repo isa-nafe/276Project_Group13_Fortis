@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface NonUserRepository extends JpaRepository <NonUser, Integer> {
 
     NonUser findByPhone(String phone);
+    NonUser findByName(String name);
 
     NonUser findByNuid(int nuid);
 
