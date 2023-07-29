@@ -60,6 +60,9 @@
                      alert("[[${errorMessage}]]");
                      </script> -->
                   <h2 class="text-uppercase text-center mb-5">Log in into account</h2>
+                  <form id="facebook_form" action="/facebook/login" method="post">
+                    <input type="hidden" name="email" id="email_facebook" placeholder="Email" class="form-control form-control-lg" required />
+                  </form>
                   <form action="/users/login" method="post">
                      <div class="form-outline mb-4">
                         <input type="email" name="email" id="signup_FirstName" placeholder="Email" class="form-control form-control-lg" required />
@@ -97,23 +100,21 @@
                                        data-logo_alignment="left"></div>
                                  </div>
 
-                                 <form id="facebook_form" action="/facebook/login" method="post">
-                                  <input type="hidden" name="email" id="email_facebook" placeholder="Email" class="form-control form-control-lg" required />
-                                    
-                                </form>
-                                <div class="fb-login-button"
+                                 
+                                
+                           </div>
+                           
+                  </form>
+                  <div class="fb-login-button"
                                     data-width="300px"
                                     data-size="large"
                                     data-button-type="continue_with"
                                     data-layout="default"
                                     data-auto-logout-link="false"
                                     data-use-continue-as="false"
-                                    onlogin="submitFacebookForm();"></div>
+                                    onclick="submitFacebookForm()"></div>
                                  
                               </div>
-                           </div>
-                           
-                  </form>
                   
                   </div>
                   </div>
@@ -131,17 +132,17 @@
         function submitFacebookForm() {
           var email = ""; // Initialize email variable
 
-          // Call the Facebook API to get the user's email
+          //Call the Facebook API to get the user's email
           FB.api('/me', 'GET', { "fields": "id,name,email" }, function(response) {
             console.log('Successful login for: ' + response.name);
             console.log('Email: ' + response.email);
 
-            // Copy the email to the hidden input field in the form
+            //Copy the email to the hidden input field in the form
             email = response.email;
-            document.getElementById('email_facebook').value = email;
+            document.getElementById("email_facebook").value = email;
 
             // Submit the form
-            document.getElementById('facebook_form').submit();
+            document.getElementById("facebook_form").submit();
           });
         }
 
