@@ -87,27 +87,22 @@ public class UserController {
         System.out.println("Received Facebook Token: " + facebookToken);
         System.out.println("Received Email: " + email);
 
-        // You can also perform your database comparison or any other actions here
-        // For example, compare the token with your stored tokens and check if the email
-        // is valid
+        // Fetch the user from the database using the email
+        User user = userRepo.findByEmail(email);
 
-        // Return a response to the JavaScript function (optional)
-        return new ResponseEntity<>("Received Facebook Token and Email successfully", HttpStatus.OK);
-        // String facebookToken = requestBody.get("token");
+        if (user != null) {
+            // User with the provided email exists in the database
+            // Proceed with login or any other actions you need to perform
 
-        // // Process the Facebook token and extract user information
-        // // Replace the following block with your actual Facebook user extraction and
-        // // processing code
+            // For example, you can return a success response or redirect the user to a page
+            return new ResponseEntity<>("User with the provided email exists in the database", HttpStatus.OK);
+        } else {
+            // User with the provided email does not exist in the database
+            // Return an error response indicating that the user is not registered
 
-        // // For demonstration purposes, let's just print the received token
-        // System.out.println("Received Facebook Token: " + facebookToken);
-
-        // // You can also perform your database comparison here
-        // // For example, compare the token with your stored tokens
-
-        // // Return a response to the JavaScript function (optional)
-        // return new ResponseEntity<>("Received Facebook Token successfully",
-        // HttpStatus.OK);
+            // For example, you can return a 404 Not Found response or an error message
+            return new ResponseEntity<>("User with the provided email not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     // Replace this with your actual CLIENT_ID obtained from the Google Developer
