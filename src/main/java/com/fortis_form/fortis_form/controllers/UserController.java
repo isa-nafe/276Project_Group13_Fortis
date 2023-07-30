@@ -78,7 +78,7 @@ public class UserController {
     // Existing methods and code in UserController...
 
     @PostMapping("/users/facebookToken")
-    public ResponseEntity<String> processFacebookToken(@RequestBody Map<String, String> requestBody) {
+    public String processFacebookToken(@RequestBody Map<String, String> requestBody) {
         String facebookToken = requestBody.get("token");
         String email = requestBody.get("email");
 
@@ -95,13 +95,14 @@ public class UserController {
             // Proceed with login or any other actions you need to perform
 
             // For example, you can return a success response or redirect the user to a page
-            return new ResponseEntity<>("User with the provided email exists in the database", HttpStatus.OK);
+            // redirectAttributes.addAttribute("phone", user.getPhone());
+            return "redirect:/users/form";
         } else {
             // User with the provided email does not exist in the database
             // Return an error response indicating that the user is not registered
 
             // For example, you can return a 404 Not Found response or an error message
-            return new ResponseEntity<>("User with the provided email not found", HttpStatus.NOT_FOUND);
+            return "redirect:/users/login";
         }
     }
 
