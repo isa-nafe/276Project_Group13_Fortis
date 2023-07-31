@@ -13,7 +13,7 @@ public class FormService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveForm(int userId) {
+    public Form saveForm(int userId) {
         // Get the current date
         LocalDate currentDate = LocalDate.now();
 
@@ -27,7 +27,8 @@ public class FormService {
             form.setUser(user);
 
             // Save the form to the database
-            formRepository.save(form);
+            return formRepository.save(form);
         }
+        return null;
     }
 }

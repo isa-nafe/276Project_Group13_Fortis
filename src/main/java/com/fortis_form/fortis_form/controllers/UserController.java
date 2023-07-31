@@ -95,23 +95,7 @@ public class UserController {
 
    
 
-//    @PostMapping("/users/facebookToken")
-// public String processFacebookToken(@RequestParam String email, RedirectAttributes redirectAttributes) {
-//     String facebookEmail = email;
 
-//     // For demonstration purposes, let's just print the received email
-//     System.out.println("Received Facebook Email: " + facebookEmail);
-
-//     User storedUser = userRepo.findByEmail(email);
-//     if (storedUser != null) {
-//         redirectAttributes.addAttribute("phone", storedUser.getPhone());
-//         return "redirect:/users/form";
-//     } else {
-//         redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-//         System.out.println("Error message: " + redirectAttributes.getFlashAttributes().get("errorMessage"));
-//         return "redirect:/users/login";
-//     }
-// }
 
    // Replace this with your actual CLIENT_ID obtained from the Google Developer
    // Console
@@ -228,13 +212,5 @@ public class UserController {
       return "users/form";
    }
 
-   // @GetMapping("/users/reset")
-   // public String Reset(@RequestParam Map<String, String> newnonuser,
-   // RedirectAttributes redirectAttributes){
-   // System.out.println("resetting users");
-   // String newPhone = newnonuser.get("phone");
-   // redirectAttributes.addAttribute("phone", newPhone);
-   // return "users/form";
-   // }
 
 }
