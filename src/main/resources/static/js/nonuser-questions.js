@@ -192,7 +192,6 @@ $(document).ready(function() {
     function updateProgressBar() {
       // Check if any modal is open
       const isModalOpen = $('.modal.show').length > 0;
-      console.log(isModalOpen);
 
       // Get the number of completed sections (excluding modals)
       const checkedRadioButtons = $('input[type=radio]:checked').length;

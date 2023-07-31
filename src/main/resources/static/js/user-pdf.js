@@ -7,7 +7,7 @@ function sendEmail(topic) {
     // Retrieve form data
     var prompts = '';
     var info = '';
-    var formElements = document.getElementById('userInfo').elements;
+    var formElements = document.getElementById('userInfoMain').elements;
     for (var i = 0; i < formElements.length; i++) {
         var element = formElements[i];
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -54,7 +54,6 @@ function sendEmail(topic) {
 
         // Create URL for the Blob
         var pdfUrl = URL.createObjectURL(pdfBlob);
-        var close = window.close();
 
         // Open the PDF in a new tab
         var newTab = window.open();
@@ -167,7 +166,7 @@ function sendEmail(topic) {
     }).then(
       message => {
         console.log(message);
-        $('#userInfo').submit();
+        $('#userInfoMain').submit();
         $('#printContent').hide();
       }
     );

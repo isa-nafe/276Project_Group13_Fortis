@@ -124,19 +124,6 @@ public class NonUserController {
         return "redirect:/nonusers/form";
     }
     
-    // @GetMapping("/nonusers/check-phone-exists")
-    // public ResponseEntity<Map<String, Boolean>> checkPhoneExists(@RequestParam String phone, @RequestParam int userId) {
-        
-    //     NonUser nonUser = nonUserRepo.findByNuid(userId);
-    //     String newPhone = phone;
-    //     NonUser existingNonUser = nonUserRepo.findByPhone(newPhone);
-    //     // Check if a non-user with the same phone number exists and it's not the same as the current non-user being edited
-    //     boolean phoneExists = (existingNonUser != null) && (existingNonUser.getNuid() != userId);
-    //     System.out.println(phoneExists);
-    //     Map<String, Boolean> response = new HashMap<>();
-    //     response.put("phoneExists", phoneExists);
-    //     return ResponseEntity.ok(response);
-    // }
 
 
 

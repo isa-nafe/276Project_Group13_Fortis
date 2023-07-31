@@ -1,5 +1,6 @@
 function Reset() {
-    $('#userInfo').submit();
+    // $('#userInfo').submit();
+    location.reload();
 }
 function resetUser(){
     location.reload();
