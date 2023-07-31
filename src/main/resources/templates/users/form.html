@@ -43,7 +43,7 @@
                             <button type="submit" id="submitButton">Submit Form</button> 
                         </form> -->
                         <form th:object="${user}" action="/submit-form" id="userInfo">
-                           <input type="hidden" name="userId" th:value="${user.uid}" method="get"/>
+                           <input type="hidden" placeholder="User ID" name="userId" th:value="${user.uid}" method="get"/>
                            <!-- <div th:if="${errorMessage}">
                               <p th:text="${errorMessage}"></p>
                            </div> -->

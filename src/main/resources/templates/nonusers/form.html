@@ -46,7 +46,7 @@
                         
                         <h2 class="text-uppercase text-center mb-5">Enter user info</h2>
                         <form th:object="${nonUser}" action="/nonusers/edit" method="post" id="userInfo">
-                           <input type="hidden" name="userId" th:value="${nonUser.nuid}" method="post" />
+                           <input type="hidden" placeholder="User ID" name="userId" th:value="${nonUser.nuid}" method="post" />
               
                            <div th:if="${errorMessage}" id="errorMessage" class="error-message">
                               <p th:text="${errorMessage}"></p>
