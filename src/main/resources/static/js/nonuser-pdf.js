@@ -149,6 +149,7 @@ function sendEmail(topic) {
     // Convert the compressed data to a base64 string
     var base64PDFData = btoa(String.fromCharCode.apply(null, new Uint8Array(pdfData)));
 
+    
     Email.send({
         Host: 'smtp.elasticemail.com',
         Username: 'emergency-form@cmpt276.com',
